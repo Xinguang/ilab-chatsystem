@@ -12,12 +12,27 @@ using System;
 namespace ilab.KanSea.Chat.Helper
 {
 	/// <summary>
-	/// Description of MsgInfo.
+	/// 判断接发信息内容
+	/// 并调用相关函数
 	/// </summary>
 	public class MsgInfo
 	{
 		public MsgInfo()
 		{
 		}
+		#region 属性
+		/// <summary>
+		/// 单体模式 
+		/// </summary>
+		private static MsgInfo objInstance = null; 
+		/// <summary>
+		/// 单体模式
+		/// </summary>
+		/// <returns></returns>
+		public static MsgInfo getInstance() {
+			if (objInstance==null) objInstance=new MsgInfo();
+			return objInstance;
+		}
+		#endregion
 	}
 }
