@@ -19,5 +19,19 @@ namespace ilab.KanSea.Chat.Helper
 		public Translate()
 		{
 		}
+		#region 属性
+		/// <summary>
+		/// 单体模式 
+		/// </summary>
+		private static Translate objInstance = null; 
+		/// <summary>
+		/// 单体模式
+		/// </summary>
+		/// <returns></returns>
+		public static Translate getInstance() {
+			if (objInstance==null) objInstance=new Translate();
+			return objInstance;
+		}
+		#endregion
 	}
 }

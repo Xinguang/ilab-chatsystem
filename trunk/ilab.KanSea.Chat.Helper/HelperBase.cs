@@ -19,5 +19,19 @@ namespace ilab.KanSea.Chat.Helper
 		public HelperBase()
 		{
 		}
+		#region 属性
+		/// <summary>
+		/// 单体模式 
+		/// </summary>
+		private static HelperBase objInstance = null; 
+		/// <summary>
+		/// 单体模式
+		/// </summary>
+		/// <returns></returns>
+		public static HelperBase getInstance() {
+			if (objInstance==null) objInstance=new HelperBase();
+			return objInstance;
+		}
+		#endregion
 	}
 }
