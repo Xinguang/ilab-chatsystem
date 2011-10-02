@@ -19,6 +19,10 @@ namespace ilab.KanSea.Chat.Helper.model
 	public class Message
 	{
 		#region 属性
+        /// <summary>
+        /// 信息类型
+        /// </summary>
+        public MsgType MsgStatus{get;set;}
 		/// <summary>
 		/// 用户名
 		/// </summary>
@@ -28,17 +32,13 @@ namespace ilab.KanSea.Chat.Helper.model
         /// </summary>
         public string Password {get;set;}
         /// <summary>
-        /// 客户端ip
+        /// 内网地址端口
         /// </summary>
-        public IPAddress ClientIP{get;set;}
+        public IPEndPoint ClientIntranet{get;set;}
         /// <summary>
-        /// 客户端端口
+        /// 外网地址端口
         /// </summary>
-        public int ClientPort{get;set;}
-        /// <summary>
-        /// 信息类型
-        /// </summary>
-        public MsgType MsgStatus{get;set;}
+        public IPEndPoint ClientExtranet {get;set;}
         /// <summary>
         /// 发送信息或留言
         /// </summary>
@@ -46,7 +46,7 @@ namespace ilab.KanSea.Chat.Helper.model
         /// <summary>
         /// 发送日期
         /// </summary>
-        public string SendDate {get;set;}
+        public DateTime SendDate {get;set;}
         #endregion
 	}
 }
