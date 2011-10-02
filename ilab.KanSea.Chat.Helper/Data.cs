@@ -18,6 +18,21 @@ namespace ilab.KanSea.Chat.Helper
 	{
 		public Data()
 		{
-		}
+        }
+        #region 方法
+        /// <summary>
+        /// 单体模式 
+        /// </summary>
+        private static Data objInstance = null;
+        /// <summary>
+        /// 单体模式
+        /// </summary>
+        /// <returns></returns>
+        public static Data getInstance()
+        {
+            if (objInstance == null) objInstance = new Data();
+            return objInstance;
+        }
+        #endregion
 	}
 }

@@ -19,7 +19,7 @@ namespace ilab.KanSea.Chat.Helper
 		public Translate()
 		{
 		}
-		#region 属性
+		#region 方法
 		/// <summary>
 		/// 单体模式 
 		/// </summary>
