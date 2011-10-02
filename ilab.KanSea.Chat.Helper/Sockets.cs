@@ -177,7 +177,7 @@ namespace ilab.KanSea.Chat.Helper
             receiver.Receive(buff, BuffLength, 0);//接收信息流头
             try
             {
-                ProcessMsg.getInstance().callback(buff);
+                ProcessMsg.getInstance().callback(BufferHelper.Decrypt(buff));
             }
             catch (Exception e)
             {
@@ -206,9 +206,9 @@ namespace ilab.KanSea.Chat.Helper
 		#region 发送信息
         private byte[] getSendBuff(byte[] sendByte)
         {
-            int sendLength = 0;
+            sendByte = BufferHelper.Encrypt(sendByte);
             //要发送的内容长度
-            sendLength = sendByte.Length;
+            int sendLength = sendByte.Length;
             //头文件信息
             byte[] sendHeader = System.Text.Encoding.UTF8.GetBytes(sendLength.ToString());
             //实际发送数据

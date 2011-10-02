@@ -8,6 +8,7 @@
  * 声明	: 未经作者许可，任何人不得发布出售该源码，请尊重别人的劳动成果，谢谢大家支持 
  */
 using System;
+using System.Security.Cryptography;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 namespace ilab.KanSea.Chat.Helper
@@ -54,14 +55,74 @@ namespace ilab.KanSea.Chat.Helper
         /// </summary>
         public static byte[] Encrypt(byte[] input)
         {
-            return null;
+            return Encrypt(Encrypt(Encrypt(input, "KanSea"), "ilab"),"chatsystem");
         }
         /// <summary>
         /// 解密发送信息
         /// </summary>
         public static byte[] Decrypt(byte[] input)
         {
-            return null;
+            return Decrypt(Decrypt(Decrypt(input, "chatsystem"), "ilab"), "KanSea");
+        }
+        /// <summary>
+        /// 加密Byte[]
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="Password"></param>
+        /// <returns></returns>
+        private static byte[] Encrypt(byte[] input, String Password)
+        {
+            MemoryStream ms = new MemoryStream();
+            Rijndael alg = Rijndael.Create();
+
+
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
+                new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 
+            0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
+
+            alg.Key = pdb.GetBytes(32);
+            alg.IV = pdb.GetBytes(16);
+
+            CryptoStream cs = new CryptoStream(ms,
+               alg.CreateEncryptor(), CryptoStreamMode.Write);
+
+            cs.Write(input, 0, input.Length);
+
+            cs.Close();
+
+            byte[] encryptedData = ms.ToArray();
+
+            return encryptedData;
+        }
+        /// <summary>
+        /// 解密 Byte[]
+        /// </summary>
+        /// <param name="cipherData"></param>
+        /// <param name="Password"></param>
+        /// <returns></returns>
+        private static byte[] Decrypt(byte[] cipherData, String Password)
+        {
+            MemoryStream ms = new MemoryStream();
+
+            Rijndael alg = Rijndael.Create();
+
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
+                new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 
+            0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
+
+            alg.Key = pdb.GetBytes(32);
+            alg.IV = pdb.GetBytes(16);
+
+            CryptoStream cs = new CryptoStream(ms,
+                alg.CreateDecryptor(), CryptoStreamMode.Write);
+
+            cs.Write(cipherData, 0, cipherData.Length);
+
+            cs.Close();
+
+            byte[] decryptedData = ms.ToArray();
+
+            return decryptedData;
         }
         #endregion
     }
