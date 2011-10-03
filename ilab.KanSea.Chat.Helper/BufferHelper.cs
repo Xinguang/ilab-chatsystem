@@ -42,6 +42,16 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="datas">byte[]数据</param>
         /// <param name="index">开始位置</param>
         /// <returns>object</returns>
+        public static object Deserialize(byte[] datas)
+        {
+            return Deserialize(datas,0);
+        }
+        /// <summary>
+        /// 反序列化
+        /// </summary>
+        /// <param name="datas">byte[]数据</param>
+        /// <param name="index">开始位置</param>
+        /// <returns>object</returns>
         public static object Deserialize(byte[] datas, int index)
         {
             BinaryFormatter bf = new BinaryFormatter();

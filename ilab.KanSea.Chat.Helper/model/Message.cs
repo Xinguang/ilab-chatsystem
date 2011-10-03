@@ -36,10 +36,6 @@ namespace ilab.KanSea.Chat.Helper.model
         /// </summary>
         public IPEndPoint ClientIntranet{get;set;}
         /// <summary>
-        /// 外网地址端口
-        /// </summary>
-        public IPEndPoint ClientExtranet {get;set;}
-        /// <summary>
         /// 发送信息或留言
         /// </summary>
         public string Content{ get; set; }

@@ -136,7 +136,7 @@ namespace ilab.KanSea.Chat.Helper
 		private void serverListener(){
 			while(true){
                 Socket clientSocket = this._listen_tcp.AcceptSocket();//获取客户端请求
-                this.Receive(clientSocket);
+                this.Receive(clientSocket,true);
 			}
 		}
 		/// <summary>
@@ -161,23 +161,33 @@ namespace ilab.KanSea.Chat.Helper
             {
                 while (true)
                 {
-                    this.Receive(this._sender);
+                    this.Receive(this._sender,false);
                 }
             }
         }
         /// <summary>
         /// 接收信息
         /// </summary>
-        private void Receive(Socket receiver)
+        private void Receive(Socket receiver,bool isSendback)
         {
             byte[] buffinfo = new byte[this._headerLength];
             receiver.Receive(buffinfo, this._headerLength, 0);//接收信息流头
             int BuffLength = Convert.ToInt32(System.Text.Encoding.UTF8.GetString(buffinfo));
             byte[] buff = new byte[BuffLength];
+            ProcessMsg processMsg = new ProcessMsg();
             receiver.Receive(buff, BuffLength, 0);//接收信息流头
             try
             {
-                ProcessMsg.getInstance().callback(BufferHelper.Decrypt(buff));
+                Message msg = (Message)BufferHelper.Deserialize(BufferHelper.Decrypt(buff));
+                System.Windows.Forms.MessageBox.Show(msg.Content);
+                if (isSendback)
+                {
+                    Message callbackMsg = processMsg.callback(msg);
+                    callbackMsg.Content = "receiver";
+                    this.send(callbackMsg, receiver);
+                    //callbackMsg.Content = "RemoteEndPoint";
+                    //this.send(callbackMsg, receiver.RemoteEndPoint);
+                }
             }
             catch (Exception e)
             {
@@ -204,8 +214,9 @@ namespace ilab.KanSea.Chat.Helper
 		#endregion
 		
 		#region 发送信息
-        private byte[] getSendBuff(byte[] sendByte)
+        private byte[] getSendBuff(Message msg)
         {
+            byte[] sendByte = BufferHelper.Serialize(msg);
             sendByte = BufferHelper.Encrypt(sendByte);
             //要发送的内容长度
             int sendLength = sendByte.Length;
@@ -218,25 +229,28 @@ namespace ilab.KanSea.Chat.Helper
             sendByte.CopyTo(sendBuff, this._headerLength);
             return sendBuff;
         }
-		/// <summary>
-		/// 发送信息
-		/// Socket sender 未初始化 则为客户端  连接服务器 否则 发送给上一次指定发送对象
-		/// 否则 则是send(string text,Socket clientSocket) 发过来的
-		/// </summary>
-		/// <param name="text">发送内容</param>
-        public void send(byte[] sendByte)
-        {
-            if(null == this._sender){
+        /// <summary>
+        /// 发送信息
+        /// Socket sender 未初始化 则为客户端  连接服务器 否则 发送给上
+        /// </summary>
+        /// <param name="msg">发送模型</param>
+        public void send(Message msg){
+            if (null == this._sender)
+            {
                 this._sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                if(null==this._server_ip){
-                	//this._server_ip = this.getServerIP();
-                	this._server_ip = IPAddress.Parse("192.168.0.11");
+                if (null == this._server_ip)
+                {
+                    this._server_ip = this.getServerIP();
+                    //this._server_ip = IPAddress.Parse("192.168.0.11");
                 }
-                this._sender.Connect(this._server_ip,this._send_port);
+                this._sender.Connect(this._server_ip, this._send_port);
             }
-            this._sender.Send(this.getSendBuff(sendByte));
-            IPEndPoint clientEndPoint = (IPEndPoint)this._sender.LocalEndPoint;
-            //System.Windows.Forms.MessageBox.Show(clientEndPoint.Address.ToString() + clientEndPoint.Port.ToString());
+
+            if (null == msg.ClientIntranet)
+            {
+                msg.ClientIntranet = (IPEndPoint)this._sender.LocalEndPoint;
+            }
+            this._sender.Send(this.getSendBuff(msg));
         }
         /// <summary>
         /// 指定发送对象
@@ -244,10 +258,16 @@ namespace ilab.KanSea.Chat.Helper
         /// </summary>
         /// <param name="text">发送内容</param>
         /// <param name="clientSocket">指定发送对象的Socket</param>
-        private void send(byte[] sendByte, Socket clientSocket)
+        public void send(Message msg, Socket clientSocket)
         {
             this._sender = clientSocket;
-            this.send(sendByte);
+            this.send(msg);
+        }
+        public void send(Message msg, EndPoint clientEndPoint)
+        {
+            this._sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            this._sender.Connect(clientEndPoint);
+            this.send(msg);
         }
         /// <summary>
         /// 指定ip及端口
@@ -255,9 +275,9 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="text">发送内容</param>
         /// <param name="ipaddress">ip地址 strng型</param>
         /// <param name="port">端口</param>
-        private void send(byte[] sendByte, string ipaddress, Int32 port)
+        public void send(Message msg, string ipaddress, Int32 port)
         {
-        	this.send(sendByte,IPAddress.Parse(ipaddress), port);
+        	this.send(msg,IPAddress.Parse(ipaddress), port);
         }
         /// <summary>
         /// 指定ip及端口
@@ -265,11 +285,11 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="text">发送内容</param>
         /// <param name="ipaddress">ip地址 IPAddress型</param>
         /// <param name="port">端口</param>
-        private void send(byte[] sendByte, IPAddress ipaddress, Int32 port)
+        public void send(Message msg, IPAddress ipaddress, Int32 port)
         {
         	this._sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         	this._sender.Connect(ipaddress, port);
-            this.send(sendByte);
+            this.send(msg);
         }
         #endregion
         #endregion
