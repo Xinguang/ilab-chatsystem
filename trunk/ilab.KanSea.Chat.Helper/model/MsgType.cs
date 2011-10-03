@@ -14,6 +14,7 @@ namespace ilab.KanSea.Chat.Helper.model
     /// <summary>
     /// 信息属性
     /// </summary>
+    [Flags]
     public enum MsgType
     {
         /// <summary>
@@ -23,38 +24,41 @@ namespace ilab.KanSea.Chat.Helper.model
         /// <summary>
         /// 退出
         /// </summary>
-        Logout = 3,
+        Logout = 2,
         /// <summary>
         /// 获取该用户所有好友信息列表
         /// </summary>
-        GetInfoList = 5,
+        GetInfoList = 4,
         /// <summary>
         /// 发送该用户所有好友信息列表
         /// </summary>
-        SendInfoList = 7,
+        SendInfoList = 8,
         /// <summary>
         /// 获取指定用户信息
         /// </summary>
-        GetInfoUser = 9,
+        GetInfoUser = 16,
         /// <summary>
         /// 发送指定用户信息
         /// </summary>
-        SendInfoUser = 11,
+        SendInfoUser = 32,
         /// <summary>
         /// 获取 留言 列表
         /// </summary>
-        GetMsgList = 13,
+        GetMsgList = 64,
         /// <summary>
         /// 发送 留言 列表
         /// </summary>
-        SendMsgList = 15,
+        SendMsgList = 128,
         /// <summary>
         /// 获取指定用户的留言
         /// </summary>
-        GetMsgUser = 17,
+        GetMsgUser = 256,
         /// <summary>
         /// 发送指定用户的留言
         /// </summary>
-        SendMsgUser = 19
+        SendMsgUser = 512
+        /// <summary>
+        /// 什么都不做
+        /// </summary>
     }
 }
