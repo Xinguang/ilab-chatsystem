@@ -12,53 +12,54 @@ using System;
 namespace ilab.KanSea.Chat.Helper.model
 {
     /// <summary>
-    /// 信息属性
+    /// information status
     /// </summary>
     [Flags]
-    public enum MsgType
+    public enum MsgType:int
     {
+    	/// <summary>
+    	/// nothing to do
+    	/// </summary>
+    	NoAction = 0,
         /// <summary>
-        /// 登录
+        /// login
         /// </summary>
         Login = 1,
         /// <summary>
-        /// 退出
+        /// logout
         /// </summary>
         Logout = 2,
         /// <summary>
-        /// 获取该用户所有好友信息列表
+        /// Require all your friends' information 
         /// </summary>
-        GetInfoList = 4,
+        GetUserList = 4,
         /// <summary>
-        /// 发送该用户所有好友信息列表
+        /// Require the information of the user 
         /// </summary>
-        SendInfoList = 8,
+        GetUserInfo = 8,
         /// <summary>
-        /// 获取指定用户信息
+        /// Require all your messages
         /// </summary>
-        GetInfoUser = 16,
+        GetMsgList = 16,
         /// <summary>
-        /// 发送指定用户信息
+        /// Require the message of the user
         /// </summary>
-        SendInfoUser = 32,
+        GetMsgUser = 32,
         /// <summary>
-        /// 获取 留言 列表
+        /// Send all your friends' information 
         /// </summary>
-        GetMsgList = 64,
+        SendUserList = 64,
         /// <summary>
-        /// 发送 留言 列表
+        /// Send the information of the user 
         /// </summary>
-        SendMsgList = 128,
+        SendUserInfo = 128,
         /// <summary>
-        /// 获取指定用户的留言
+        /// Send all your messages
         /// </summary>
-        GetMsgUser = 256,
+        SendMsgList = 256,
         /// <summary>
-        /// 发送指定用户的留言
+        /// Send the message of the user
         /// </summary>
-        SendMsgUser = 512
-        /// <summary>
-        /// 什么都不做
-        /// </summary>
+        SendMsgUser = 512,
     }
 }

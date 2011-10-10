@@ -20,8 +20,8 @@ namespace ilab.KanSea.Chat.Helper
 	public class ProcessMsg
     {
         #region 声明
-        private Message msg = null;
-        private Message callbackMsg =null;
+        private MessageHeader msg = null;
+        private MessageHeader callbackMsg =null;
         #endregion
         #region 构造函数
         public ProcessMsg()
@@ -33,11 +33,11 @@ namespace ilab.KanSea.Chat.Helper
         /// 信息处理入口
         /// </summary>
         /// <param name="msg">接收到的信息</param>
-        public Message callback(Message receiveMsg)
+        public MessageHeader callback(MessageHeader receiveMsg)
         {
             this.msg = receiveMsg;
 
-            switch (this.msg.MsgStatus)
+            switch (this.msg.Status)
             {
                 case MsgType.Login:
                     this.login();
@@ -45,10 +45,10 @@ namespace ilab.KanSea.Chat.Helper
                 case MsgType.Logout:
                     this.logout();
                     break;
-                case MsgType.GetInfoList:
+                case MsgType.GetUserList:
                     this.getInfoList();
                     break;
-                case MsgType.GetInfoUser:
+                case MsgType.GetUserInfo:
                     this.getInfoUser();
                     break;
                 case MsgType.GetMsgList:
@@ -57,10 +57,10 @@ namespace ilab.KanSea.Chat.Helper
                 case MsgType.GetMsgUser:
                     this.getMsgUser();
                     break;
-                case MsgType.SendInfoList:
+                case MsgType.SendUserList:
                     this.sendInfoList();
                     break;
-                case MsgType.SendInfoUser:
+                case MsgType.SendUserInfo:
                     this.sendInfoUser();
                     break;
                 case MsgType.SendMsgList:
@@ -78,44 +78,32 @@ namespace ilab.KanSea.Chat.Helper
         #region 服务器接收到的信息
         private void login()
         {
-            string testmsg = "login:" + this.msg.UserName + msg.Password;
-            this.callbackMsg = new Message();
-            this.callbackMsg.Content = testmsg;
+            string testmsg = "login:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void logout()
         {
-            string testmsg = "logout:" + this.msg.UserName;
-            this.callbackMsg = new Message();
-            this.callbackMsg.Content = testmsg;
+            string testmsg = "logout:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void getInfoList()
         {
-            string testmsg = "getInfoList:" + this.msg.SendDate.ToString() + this.msg.ClientIntranet.ToString();
-            this.callbackMsg = new Message();
-            this.callbackMsg.Content = testmsg;
+            string testmsg = "getInfoList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void getInfoUser()
         {
-            string testmsg = "getInfoUser:" + this.msg.SendDate.ToString() + this.msg.ClientIntranet.ToString() + this.msg.Content;
-            this.callbackMsg = new Message();
-            this.callbackMsg.Content = testmsg;
+            string testmsg = "getInfoUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void getMsgList()
         {
-            string testmsg = "getMsgList:" + this.msg.SendDate.ToString() + this.msg.ClientIntranet.ToString();
-            this.callbackMsg = new Message();
-            this.callbackMsg.Content = testmsg;
+            string testmsg = "getMsgList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void getMsgUser()
         {
-            string testmsg = "getMsgUser:" + this.msg.SendDate.ToString() + this.msg.ClientIntranet.ToString() + this.msg.Content;
-            this.callbackMsg = new Message();
-            this.callbackMsg.Content = testmsg;
+            string testmsg = "getMsgUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         #endregion
@@ -123,22 +111,22 @@ namespace ilab.KanSea.Chat.Helper
         #region 客户端接收到的信息
         private void sendInfoList()
         {
-            string testmsg = "sendInfoList:" + this.msg.SendDate.ToString() + this.msg.ClientIntranet.ToString() +  this.msg.Content;
+            string testmsg = "sendInfoList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void sendInfoUser()
         {
-            string testmsg = "sendInfoUser:" + this.msg.SendDate.ToString() + this.msg.ClientIntranet.ToString() +  this.msg.Content;
+            string testmsg = "sendInfoUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void sendMsgList()
         {
-            string testmsg = "sendMsgList:" + this.msg.SendDate.ToString() + this.msg.ClientIntranet.ToString() +  this.msg.Content;
+            string testmsg = "sendMsgList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void sendMsgUser()
         {
-            string testmsg = "sendMsgUser:" + this.msg.SendDate.ToString() + this.msg.ClientIntranet.ToString() +  this.msg.Content;
+            string testmsg = "sendMsgUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         #endregion
