@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.IO;
+using System.Collections.Generic;
 using ilab.KanSea.Chat.Helper.model;
 
 namespace ilab.KanSea.Chat.Helper
@@ -31,6 +32,7 @@ namespace ilab.KanSea.Chat.Helper
 		private TcpListener _listen_tcp;//tcp
         private UdpClient _listen_udp;
         private Socket _sender;
+        private List<Container> _user_list;
         /// <summary>
         /// 监听线程
         /// </summary>
@@ -136,7 +138,9 @@ namespace ilab.KanSea.Chat.Helper
 		private void serverListener(){
 			while(true){
                 Socket clientSocket = this._listen_tcp.AcceptSocket();//获取客户端请求
-                this.Receive(clientSocket,true);
+                Container user_container = new Container { clientSocket=clientSocket ,clientThread=new Thread(new ParameterizedThreadStart(this.Receive))};
+                //添加新线程调用下面
+                this.Receive(clientSocket);
 			}
 		}
 		/// <summary>
@@ -159,56 +163,62 @@ namespace ilab.KanSea.Chat.Helper
             }
             else
             {
-                while (true)
-                {
-                    this.Receive(this._sender,false);
-                }
+                //添加新线程调用下面
+                this.Receive(this._sender);
             }
         }
         /// <summary>
         /// 接收信息
         /// </summary>
-        private void Receive(Socket receiver,bool isSendback)
+        private void Receive(object receiver)
         {
-            byte[] buffinfo = new byte[this._headerLength];
-            receiver.Receive(buffinfo, this._headerLength, 0);//接收信息流头
-            int BuffLength = Convert.ToInt32(System.Text.Encoding.UTF8.GetString(buffinfo));
-            byte[] buff = new byte[BuffLength];
-            ProcessMsg processMsg = new ProcessMsg();
-            receiver.Receive(buff, BuffLength, 0);//接收信息流头
-            try
+            this.Receive((Socket)receiver);
+        }
+        /// <summary>
+        /// 接收信息
+        /// </summary>
+        private void Receive(Socket receiver)
+        {
+            while (true)
             {
-                Message msg = (Message)BufferHelper.Deserialize(BufferHelper.Decrypt(buff));
-                System.Windows.Forms.MessageBox.Show(msg.Content);
-                if (isSendback)
+                byte[] buffinfo = new byte[this._headerLength];
+                receiver.Receive(buffinfo, this._headerLength, 0);//接收信息流头
+                int BuffLength = Convert.ToInt32(System.Text.Encoding.UTF8.GetString(buffinfo));
+                byte[] buff = new byte[BuffLength];
+                ProcessMsg processMsg = new ProcessMsg();
+                receiver.Receive(buff, BuffLength, 0);//接收信息流头
+                try
                 {
-                    Message callbackMsg = processMsg.callback(msg);
-                    callbackMsg.Content = "receiver";
-                    this.send(callbackMsg, receiver);
-                    //callbackMsg.Content = "RemoteEndPoint";
-                    //this.send(callbackMsg, receiver.RemoteEndPoint);
+                    MessageHeader msg = (MessageHeader)BufferHelper.Deserialize(BufferHelper.Decrypt(buff));
+                    if (64>(int)msg.Status)
+                    {
+                        MessageHeader callbackMsg = processMsg.callback(msg);
+                        //this.send(callbackMsg, receiver);
+                        //callbackMsg.Content = "RemoteEndPoint";
+                        //this.send(callbackMsg, receiver.RemoteEndPoint);
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                System.Windows.Forms.MessageBox.Show(e.Message);
-                ///服务器
-                //System.Windows.Forms.MessageBox.Show(System.Text.Encoding.UTF8.GetString(buff));
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.Message);
+                    ///服务器
+                    //System.Windows.Forms.MessageBox.Show(System.Text.Encoding.UTF8.GetString(buff));
 
-                //判断用户发送过来的信息
-                ///通过信息 验证用户 //返回好友在线信息 //客户端ip 端口 写入数据库;//如果好友在线 发送ip及端口给好友
-                ///给用户   留言 //给好友发信时对方不在线则把消息写入数据库
-                //clientSocket.Send(System.Text.Encoding.UTF8.GetBytes("我来自服务器"));
-                //IPEndPoint clientEndPoint = (IPEndPoint)clientSocket.RemoteEndPoint;
-                //clientEndPoint.Address.ToString() + clientEndPoint.Port.ToString();
+                    //判断用户发送过来的信息
+                    ///通过信息 验证用户 //返回好友在线信息 //客户端ip 端口 写入数据库;//如果好友在线 发送ip及端口给好友
+                    ///给用户   留言 //给好友发信时对方不在线则把消息写入数据库
+                    //clientSocket.Send(System.Text.Encoding.UTF8.GetBytes("我来自服务器"));
+                    //IPEndPoint clientEndPoint = (IPEndPoint)clientSocket.RemoteEndPoint;
+                    //clientEndPoint.Address.ToString() + clientEndPoint.Port.ToString();
 
-                ///客户端
-                //System.Text.Encoding.UTF8.GetString(buff);
-                //判断服务器返回信息
-                //登陆是否成功
-                //用户列表 信息
-                //留言
-                //新上线用户
+                    ///客户端
+                    //System.Text.Encoding.UTF8.GetString(buff);
+                    //判断服务器返回信息
+                    //登陆是否成功
+                    //用户列表 信息
+                    //留言
+                    //新上线用户
+                }
             }
         }
 		#endregion
@@ -240,17 +250,17 @@ namespace ilab.KanSea.Chat.Helper
                 this._sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 if (null == this._server_ip)
                 {
-                    this._server_ip = this.getServerIP();
-                    //this._server_ip = IPAddress.Parse("192.168.0.11");
+                    //this._server_ip = this.getServerIP();
+                    this._server_ip = IPAddress.Parse("192.168.0.11");
                 }
                 this._sender.Connect(this._server_ip, this._send_port);
             }
-
-            if (null == msg.ClientIntranet)
+            else
             {
-                msg.ClientIntranet = (IPEndPoint)this._sender.LocalEndPoint;
+                System.Windows.Forms.MessageBox.Show(this._sender.LocalEndPoint.ToString());
             }
-            this._sender.Send(this.getSendBuff(msg));
+            int erroecode = this._sender.Send(this.getSendBuff(msg));
+            System.Windows.Forms.MessageBox.Show(erroecode.ToString());
         }
         /// <summary>
         /// 指定发送对象

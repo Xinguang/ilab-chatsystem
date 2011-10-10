@@ -1,7 +1,7 @@
 ﻿/**
  * 作者	: Hikaru
- * 日期	: 2011/10/2
- * 时间	: 3:14
+ * 日期	: 2011/10/10
+ * 时间	: 11:59
  * QQ	: 39396682
  * Email: admin@kansea.com
  * 网站	: http://kansea.com  
@@ -12,20 +12,20 @@ using System;
 namespace ilab.KanSea.Chat.Helper.model
 {
 	/// <summary>
-	/// information model
+	/// information header model
 	/// </summary>
     [Serializable]
-	public class Message
+	public class MessageHeader
 	{
 		#region 属性
         /// <summary>
-        /// message
+        /// information status
         /// </summary>
-        public string Content{ get; set; }
+        public MsgType Status{get;set;}
         /// <summary>
-        /// date
+        /// information size
         /// </summary>
-        public DateTime SendDate {get;set;}
+        public int Length {get;set;}
         #endregion
 	}
 }
