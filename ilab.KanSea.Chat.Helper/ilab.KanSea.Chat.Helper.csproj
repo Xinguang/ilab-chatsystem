@@ -40,7 +40,7 @@
     <Compile Include="model\Container.cs" />
     <Compile Include="model\Message.cs" />
     <Compile Include="model\MessageHeader.cs" />
-    <Compile Include="model\MsgType.cs" />
+    <Compile Include="model\MessageStatus.cs" />
     <Compile Include="model\UserInfo.cs" />
     <Compile Include="ProcessMsg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

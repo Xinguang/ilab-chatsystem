@@ -19,9 +19,21 @@ namespace ilab.KanSea.Chat.Helper.model
 	{
 		#region 属性
         /// <summary>
-        /// message
+        /// Message
         /// </summary>
-        public string Content{ get; set; }
+        public string Content { get; set; }
+        /// <summary>
+        /// Translation
+        /// </summary>
+        public string Content_Trans { get; set; }
+        /// <summary>
+        /// Hot message
+        /// </summary>
+        public string HotMessage { get; set; }
+        /// <summary>
+        /// The Translation of hot massage
+        /// </summary>
+        public string HotMessage_Trans { get; set; }
         /// <summary>
         /// date
         /// </summary>
