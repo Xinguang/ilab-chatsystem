@@ -20,112 +20,121 @@ namespace ilab.KanSea.Chat.Helper
 	public class ProcessMsg
     {
         #region 声明
-        private MessageHeader msg = null;
-        private MessageHeader callbackMsg =null;
+        private MessageStatus _Status;
+        private object _Object;
+        public bool _IsGoon = true;
         #endregion
         #region 构造函数
-        public ProcessMsg()
+        public ProcessMsg(object obj,MessageStatus status)
 		{
+            this._Status = status;
+            this._Object = obj;
 		}
         #endregion
         #region 方法
         /// <summary>
         /// 信息处理入口
         /// </summary>
-        /// <param name="msg">接收到的信息</param>
-        public MessageHeader callback(MessageHeader receiveMsg)
+        public void Entrance()
         {
-            this.msg = receiveMsg;
-
-            switch (this.msg.Status)
+            switch (this._Status)
             {
-                case MsgType.Login:
+                case MessageStatus.Login:
                     this.login();
                     break;
-                case MsgType.Logout:
+                case MessageStatus.Logout:
                     this.logout();
                     break;
-                case MsgType.GetUserList:
-                    this.getInfoList();
+                case MessageStatus.GetUserList:
+                    this.getUserList();
                     break;
-                case MsgType.GetUserInfo:
-                    this.getInfoUser();
+                case MessageStatus.GetUserInfo:
+                    this.getUserInfo();
                     break;
-                case MsgType.GetMsgList:
+                case MessageStatus.GetMsgList:
                     this.getMsgList();
                     break;
-                case MsgType.GetMsgUser:
+                case MessageStatus.GetMsgUser:
                     this.getMsgUser();
                     break;
-                case MsgType.SendUserList:
-                    this.sendInfoList();
+                case MessageStatus.SendUserList:
+                    this.sendUserList();
                     break;
-                case MsgType.SendUserInfo:
-                    this.sendInfoUser();
+                case MessageStatus.SendUserInfo:
+                    this.sendUserInfo();
                     break;
-                case MsgType.SendMsgList:
+                case MessageStatus.SendMsgList:
                     this.sendMsgList();
                     break;
-                case MsgType.SendMsgUser:
+                case MessageStatus.SendMsgUser:
                     this.sendMsgUser();
                     break;
                 default:
                     break;
             }
-            return this.callbackMsg;
   
         }
         #region 服务器接收到的信息
         private void login()
         {
+            UserInfo userinfo = (UserInfo)this._Object;
             string testmsg = "login:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void logout()
         {
+            UserInfo userinfo = (UserInfo)this._Object;
             string testmsg = "logout:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
-        private void getInfoList()
+        private void getUserList()
         {
+            UserInfo[] userinfos = (UserInfo[])this._Object;
             string testmsg = "getInfoList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
-        private void getInfoUser()
+        private void getUserInfo()
         {
+            UserInfo userinfo = (UserInfo)this._Object;
             string testmsg = "getInfoUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void getMsgList()
         {
+            Message[] messages = (Message[])this._Object;
             string testmsg = "getMsgList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void getMsgUser()
         {
+            Message message = (Message)this._Object;
             string testmsg = "getMsgUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         #endregion
 
         #region 客户端接收到的信息
-        private void sendInfoList()
+        private void sendUserList()
         {
+            UserInfo[] userinfos = (UserInfo[])this._Object;
             string testmsg = "sendInfoList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
-        private void sendInfoUser()
+        private void sendUserInfo()
         {
+            UserInfo userinfo = (UserInfo)this._Object;
             string testmsg = "sendInfoUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void sendMsgList()
         {
+            Message[] messages = (Message[])this._Object;
             string testmsg = "sendMsgList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void sendMsgUser()
         {
+            Message message = (Message)this._Object;
             string testmsg = "sendMsgUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }

@@ -21,7 +21,7 @@ namespace ilab.KanSea.Chat.Helper.model
         /// <summary>
         /// information status
         /// </summary>
-        public MsgType Status{get;set;}
+        public MessageStatus Status{get;set;}
         /// <summary>
         /// information size
         /// </summary>

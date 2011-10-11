@@ -15,12 +15,8 @@ namespace ilab.KanSea.Chat.Helper.model
     /// information status
     /// </summary>
     [Flags]
-    public enum MsgType:int
+    public enum MessageStatus:int
     {
-    	/// <summary>
-    	/// nothing to do
-    	/// </summary>
-    	NoAction = 0,
         /// <summary>
         /// login
         /// </summary>

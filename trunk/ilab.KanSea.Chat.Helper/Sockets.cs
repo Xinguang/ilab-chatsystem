@@ -140,7 +140,7 @@ namespace ilab.KanSea.Chat.Helper
                 Socket clientSocket = this._listen_tcp.AcceptSocket();//获取客户端请求
                 Container user_container = new Container { clientSocket=clientSocket ,clientThread=new Thread(new ParameterizedThreadStart(this.Receive))};
                 //添加新线程调用下面
-                this.Receive(clientSocket);
+                this.Receive(user_container);
 			}
 		}
 		/// <summary>
@@ -167,6 +167,13 @@ namespace ilab.KanSea.Chat.Helper
                 this.Receive(this._sender);
             }
         }
+        private void newrewiththread(Socket receiver)
+        {
+            Thread clientThread = new Thread(new ParameterizedThreadStart(this.Receive));
+            clientThread.Name = String.Format("Ilab_Client_{0}", DateTime.Now.ToString("yyyyMMddhhmmssfff"));
+            clientThread.IsBackground = true;
+            clientThread.Start(receiver);
+        }
         /// <summary>
         /// 接收信息
         /// </summary>
@@ -179,47 +186,69 @@ namespace ilab.KanSea.Chat.Helper
         /// </summary>
         private void Receive(Socket receiver)
         {
-            while (true)
+            byte[] buffinfo = new byte[this._headerLength];
+            receiver.Receive(buffinfo, this._headerLength, 0);//接收信息流头
+            int BuffLength = Convert.ToInt32(System.Text.Encoding.UTF8.GetString(buffinfo));
+            if (0 < BuffLength)
             {
-                byte[] buffinfo = new byte[this._headerLength];
-                receiver.Receive(buffinfo, this._headerLength, 0);//接收信息流头
-                int BuffLength = Convert.ToInt32(System.Text.Encoding.UTF8.GetString(buffinfo));
-                byte[] buff = new byte[BuffLength];
-                ProcessMsg processMsg = new ProcessMsg();
-                receiver.Receive(buff, BuffLength, 0);//接收信息流头
+                byte[] buffHeader = new byte[BuffLength];
+                receiver.Receive(buffHeader, BuffLength, 0);//接收信息流头
+
                 try
                 {
-                    MessageHeader msg = (MessageHeader)BufferHelper.Deserialize(BufferHelper.Decrypt(buff));
-                    if (64>(int)msg.Status)
+                    MessageHeader msgheader = (MessageHeader)BufferHelper.Deserialize(BufferHelper.Decrypt(buffHeader));
+                    object objectBuff = null;
+                    if (0 < msgheader.Length)
                     {
-                        MessageHeader callbackMsg = processMsg.callback(msg);
-                        //this.send(callbackMsg, receiver);
-                        //callbackMsg.Content = "RemoteEndPoint";
-                        //this.send(callbackMsg, receiver.RemoteEndPoint);
+                        byte[] buff = new byte[msgheader.Length];
+                        receiver.Receive(buff, msgheader.Length, 0);//接收信息流头
+                        objectBuff = BufferHelper.Deserialize(BufferHelper.Decrypt(buff));
                     }
+                    ProcessMsg pMsg = new ProcessMsg(objectBuff, msgheader.Status);
+                    pMsg.Entrance();//根据status 强制转换 object的类型
+                    if (!pMsg._IsGoon)
+                    {
+                        return;
+                    }
+                    /*
+                    ProcessMsg pMsg = new ProcessMsg();
+                    pMsg.callback(objectBuff,msgheader.Status);//根据status 强制转换 object的类型
+                    
+                    this.getBuffUserInfo();//senduserinfo  //server login logout 
+                    this.getBuffUserList();//send userlist
+                    this.getBuffMsgInfo();//send msginfo
+                    this.getBuffMsgList();//send msglist
+                    
+                    this.SetBuffUserInfo();//getuserinfo  //client login logout 
+                    this.SetBuffUserList();//get userlist
+                    this.SetBuffMsgInfo();//get msginfo
+                    this.SetBuffMsgList();//get msglist
+                     */
                 }
-                catch (Exception e)
+                catch
+#if DEBUG
+ (Exception e)
                 {
                     System.Windows.Forms.MessageBox.Show(e.Message);
-                    ///服务器
-                    //System.Windows.Forms.MessageBox.Show(System.Text.Encoding.UTF8.GetString(buff));
-
-                    //判断用户发送过来的信息
-                    ///通过信息 验证用户 //返回好友在线信息 //客户端ip 端口 写入数据库;//如果好友在线 发送ip及端口给好友
-                    ///给用户   留言 //给好友发信时对方不在线则把消息写入数据库
-                    //clientSocket.Send(System.Text.Encoding.UTF8.GetBytes("我来自服务器"));
-                    //IPEndPoint clientEndPoint = (IPEndPoint)clientSocket.RemoteEndPoint;
-                    //clientEndPoint.Address.ToString() + clientEndPoint.Port.ToString();
-
-                    ///客户端
-                    //System.Text.Encoding.UTF8.GetString(buff);
-                    //判断服务器返回信息
-                    //登陆是否成功
-                    //用户列表 信息
-                    //留言
-                    //新上线用户
                 }
+#else
+                (){
+                }
+#endif
             }
+            else//Just only tell server the client is alive
+            {
+
+            }
+            this.checkClientSocket();
+            this.Receive(receiver);
+        }
+        private void checkClientSocket()
+        {
+            //写入数据库
+            //更新用户状态
+            //登陆的用户 加入列表 
+            //用户名关联 线程名
         }
 		#endregion
 		
