@@ -16,21 +16,26 @@ namespace ilab.KanSea.Chat.Helper.model
 	/// <summary>
 	/// Description of container.
 	/// </summary>
-	public class Container
-	{
-		#region 属性
-		public string userName{get;set;}
+    public class Container : IEquatable<Container>
+    {
+        #region 属性
+        public string userName { get; set; }
         public Socket clientSocket { get; set; }
         public Thread clientThread { get; set; }
 		#endregion
 		#region 属性
 
-		public Container find(string username){
-			if(username==this.userName){
-				return this;
-			}
-			return null;
-		}
+        public bool Equals(Container other)
+        {
+            //Check whether the compared object is null.
+            if (Object.ReferenceEquals(other, null)) return false;
+
+            //Check whether the compared object references the same data.
+            if (Object.ReferenceEquals(this, other)) return true;
+
+            //Check whether the products' properties are equal.
+            return clientSocket.Equals(other.clientSocket) && clientThread.Equals(other.clientThread);
+        }
 		#endregion
 	}
 }

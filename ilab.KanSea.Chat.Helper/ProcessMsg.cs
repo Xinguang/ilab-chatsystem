@@ -9,6 +9,7 @@
  */
 using System;
 using System.Net.Sockets;
+using System.Collections;
 using ilab.KanSea.Chat.Helper.model;
 
 namespace ilab.KanSea.Chat.Helper
@@ -23,15 +24,36 @@ namespace ilab.KanSea.Chat.Helper
         private MessageStatus _Status;
         private object _Object;
         public bool _IsGoon = true;
+        private Sockets _sender = new Sockets();
+        private int _hashCode;
+        private Hashtable _user_list;
+        private Container _userConnection;
         #endregion
         #region 构造函数
-        public ProcessMsg(object obj,MessageStatus status)
+        public ProcessMsg(object obj, MessageStatus status, Hashtable user_list, int hashCode)
 		{
             this._Status = status;
             this._Object = obj;
+            this._user_list = user_list;
+            this._hashCode = hashCode;
+            this._userConnection = (Container)this._user_list[this._hashCode];
 		}
         #endregion
         #region 方法
+        /*
+                    ProcessMsg pMsg = new ProcessMsg();
+                    pMsg.callback(objectBuff,msgheader.Status);//根据status 强制转换 object的类型
+                    
+                    this.getBuffUserInfo();//senduserinfo  //server login logout 
+                    this.getBuffUserList();//send userlist
+                    this.getBuffMsgInfo();//send msginfo
+                    this.getBuffMsgList();//send msglist
+                    
+                    this.SetBuffUserInfo();//getuserinfo  //client login logout 
+                    this.SetBuffUserList();//get userlist
+                    this.SetBuffMsgInfo();//get msginfo
+                    this.SetBuffMsgList();//get msglist
+                     */
         /// <summary>
         /// 信息处理入口
         /// </summary>
@@ -78,8 +100,15 @@ namespace ilab.KanSea.Chat.Helper
         private void login()
         {
             UserInfo userinfo = (UserInfo)this._Object;
-            string testmsg = "login:";
-            System.Windows.Forms.MessageBox.Show(testmsg);
+
+            if ("star" == userinfo.UserName && "star" == userinfo.Password)
+            {
+                userinfo.LoginDate = DateTime.Now;
+                this._user_list.Remove(this._hashCode);
+                this._userConnection.userName = userinfo.UserName;
+                this._user_list.Add(this._hashCode, this._userConnection);
+            }
+            this._sender.send(userinfo, this._userConnection.clientSocket);
         }
         private void logout()
         {
@@ -124,7 +153,7 @@ namespace ilab.KanSea.Chat.Helper
         {
             UserInfo userinfo = (UserInfo)this._Object;
             string testmsg = "sendInfoUser:";
-            System.Windows.Forms.MessageBox.Show(testmsg);
+            System.Windows.Forms.MessageBox.Show(testmsg+userinfo.LoginDate.ToString());
         }
         private void sendMsgList()
         {
