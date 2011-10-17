@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ilab.KanSea.Chat.Server")]
+[assembly: AssemblyTitle("ilab.KanSea.Chat")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ilab.KanSea.Chat.Server")]
+[assembly: AssemblyProduct("ilab.KanSea.Chat")]
 [assembly: AssemblyCopyright("Copyright 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
