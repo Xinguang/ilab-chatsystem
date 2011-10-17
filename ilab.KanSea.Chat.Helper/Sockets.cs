@@ -346,8 +346,9 @@ namespace ilab.KanSea.Chat.Helper
                 this._sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 if (null == this._server_ip)
                 {
-                    //this._server_ip = this.getServerIP();
-                    this._server_ip = IPAddress.Parse("192.168.0.11");
+                    this._server_ip = this.getServerIP();
+                    //this._server_ip = IPAddress.Parse("192.168.0.11");
+                    //this._server_ip = IPAddress.Parse("127.0.0.1");
                 }
                 this._sender.Connect(this._server_ip, this._send_port);
             }
