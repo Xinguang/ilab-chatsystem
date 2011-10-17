@@ -15,7 +15,7 @@ namespace ilab.KanSea.Chat.Helper.model
 	/// information model
 	/// </summary>
     [Serializable]
-	public class Message
+    public class Message : IEquatable<Message>
 	{
 		#region 属性
         /// <summary>
@@ -38,6 +38,20 @@ namespace ilab.KanSea.Chat.Helper.model
         /// date
         /// </summary>
         public DateTime SendDate {get;set;}
+        #endregion
+
+        #region 方法
+        public bool Equals(Message other)
+        {
+            //Check whether the compared object is null.
+            if (Object.ReferenceEquals(other, null)) return false;
+
+            //Check whether the compared object references the same data.
+            if (Object.ReferenceEquals(this, other)) return true;
+
+            //Check whether the products' properties are equal.
+            return true;
+        }
         #endregion
 	}
 }

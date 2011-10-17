@@ -23,8 +23,8 @@ namespace ilab.KanSea.Chat.Helper.model
         public Socket clientSocket { get; set; }
         public Thread clientThread { get; set; }
 		#endregion
-		#region 属性
 
+        #region 方法
         public bool Equals(Container other)
         {
             //Check whether the compared object is null.
