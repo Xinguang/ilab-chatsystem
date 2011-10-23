@@ -37,6 +37,7 @@
     <Compile Include="BufferHelper.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="HelperBase.cs" />
+    <Compile Include="HttpHelper.cs" />
     <Compile Include="model\Container.cs" />
     <Compile Include="model\Message.cs" />
     <Compile Include="model\MessageHeader.cs" />
