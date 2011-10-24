@@ -14,7 +14,7 @@ namespace ilab.KanSea.Chat.Helper
 	/// <summary>
 	/// Description of Translate.
 	/// </summary>
-	public class Translate
+    public partial class Translate
 	{
 		public Translate()
 		{
