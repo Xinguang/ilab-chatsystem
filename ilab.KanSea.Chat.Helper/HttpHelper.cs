@@ -43,9 +43,8 @@ namespace ilab.KanSea.Chat.Helper
         /// </summary>
         private StreamReader Reader = null;
         /// <summary>
-        /// 需要返回的数据对象
+        /// 是否自动获取编码
         /// </summary>
-        private string ReturnData = "Error";
         public bool AutoGetEncoding = false;
         /// <summary>
         /// 目标地址
@@ -282,80 +281,6 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="strPostdata">Post Data</param>
         public string GetRequest(string targetUrl, string method, string accept, string contentType, string userAgent, Encoding encoding, CookieContainer cookies, string strPostdata)
         {
-            this.ReturnData = this.getHtml(targetUrl, method, accept, contentType, userAgent, encoding, cookies, strPostdata);
-            //2.0
-            if (Encoding.Default == this.Encoding&&this.AutoGetEncoding)
-            {
-                string charset = HelperBase.GetString(this.ReturnData, "<meta([^<]*)charset=([^<]*)[\"']", 2);
-                if (!string.IsNullOrEmpty(charset))
-                {
-                    this.Encoding = Encoding.GetEncoding(charset);
-                    this.ReturnData = this.getHtml(targetUrl, method, accept, contentType, userAgent, encoding, cookies, strPostdata);
-                }
-            }
-            /*
-            //4.0
-            if (Encoding.Default == this.Encoding&&this.AutoGetEncoding)
-            {
-                MemoryStream _stream = new MemoryStream();
-
-                if (response.ContentEncoding != null && response.ContentEncoding.Equals("gzip", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    //开始读取流并设置编码方式
-                    new GZipStream(response.GetResponseStream(), CompressionMode.Decompress).CopyTo(_stream, 10240);
-                }
-                else
-                {
-                    response.GetResponseStream().CopyTo(_stream, 10240);
-                }
-                byte[] RawResponse = _stream.ToArray();
-              
-            
-                string temp = Encoding.Default.GetString(RawResponse, 0, RawResponse.Length);
-                //<meta(.*?)charset([\s]?)=[^>](.*?)>
-                Match meta = Regex.Match(temp, "<meta([^<]*)charset=([^<]*)[\"']", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                string charter = (meta.Groups.Count > 2) ? meta.Groups[2].Value : string.Empty;
-                charter = charter.Replace("\"", string.Empty).Replace("'", string.Empty).Replace(";", string.Empty);
-                if (charter.Length > 0)
-                {
-                    encoding = Encoding.GetEncoding(charter);
-                }
-                else
-                {
-                    if (response.CharacterSet.ToLower().Trim() == "iso-8859-1")
-                    {
-                        encoding = Encoding.GetEncoding("gbk");
-                    }
-                    else
-                    {
-                        if (string.IsNullOrEmpty(response.CharacterSet.Trim()))
-                        {
-                            encoding = Encoding.UTF8;
-                        }
-                        else
-                        {
-                            encoding = Encoding.GetEncoding(response.CharacterSet);
-                        }
-                    }
-                }
-                returnData = encoding.GetString(RawResponse);
-            }
-             */
-            return this.ReturnData;
-        }
-        /// <summary>
-        /// Post And Get
-        /// </summary>
-        /// <param name="targetUrl">URL</param>
-        /// <param name="method">Method</param>
-        /// <param name="accept">Accept</param>
-        /// <param name="contentType">Content Type</param>
-        /// <param name="userAgent">User Agent</param>
-        /// <param name="encoding">Encoding</param>
-        /// <param name="cookies">Cookies</param>
-        /// <param name="strPostdata">Post Data</param>
-        private string getHtml(string targetUrl, string method, string accept, string contentType, string userAgent, Encoding encoding, CookieContainer cookies, string strPostdata)
-        {
             this.SetRequest(targetUrl, method, accept, contentType, userAgent, encoding, cookies);
             if (null != strPostdata && methodType.POST == this.Method)
             {
@@ -365,36 +290,66 @@ namespace ilab.KanSea.Chat.Helper
                 this.Request.GetRequestStream().Close();
             }
             #region 得到请求的response
+            string resultData = null;
             try
             {
                 using (this.Response = (HttpWebResponse)this.Request.GetResponse())
                 {
                     Stream ResposeStream = this.Response.GetResponseStream();
-                    string ContentEncoding = this.Response.ContentEncoding;
-                    this.ReturnData = this.getHtmlByEncoding(ResposeStream, ContentEncoding);
+                    if (Encoding.Default == this.Encoding && this.AutoGetEncoding)
+                    {
+                        MemoryStream _stream = HelperBase.CopyStream(ResposeStream);
+                        byte[] RawResponse = _stream.ToArray();
+                        string temp = Encoding.Default.GetString(RawResponse, 0, RawResponse.Length);
+
+                        string charset = HelperBase.GetString(temp, "<meta([^<]*)\\bcharset\\b\\s*=\\s*([^<';\"]*)[\"']", 2);
+                        if (!string.IsNullOrEmpty(charset))
+                        {
+                            this.Encoding = Encoding.GetEncoding(charset);
+                            resultData = this.Encoding.GetString(RawResponse);
+                        }
+                        else
+                        {
+                            if (this.Response.CharacterSet.ToLower().Trim() == "iso-8859-1")
+                            {
+                                encoding = Encoding.Default;
+                            }
+                            else
+                            {
+                                if (string.IsNullOrEmpty(this.Response.CharacterSet.Trim()))
+                                {
+                                    encoding = Encoding.UTF8;
+                                }
+                                else
+                                {
+                                    encoding = Encoding.GetEncoding(this.Response.CharacterSet);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string ContentEncoding = this.Response.ContentEncoding;
+                        if (null != ContentEncoding && ContentEncoding.Equals("gzip", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            using (this.Reader = new StreamReader(new GZipStream(ResposeStream, CompressionMode.Decompress), this.Encoding))
+                            {
+                                resultData = this.Reader.ReadToEnd();
+                            }
+                        }
+                        else
+                        {
+                            using (this.Reader = new StreamReader(ResposeStream, this.Encoding))
+                            {
+                                resultData = this.Reader.ReadToEnd();
+                            }
+                        }
+                    }
                 }
             }
-            catch { this.ReturnData = "Error"; }
-            return this.ReturnData;
+            catch { resultData = "Error"; }
+            return resultData;
             #endregion
-        }
-        private string getHtmlByEncoding(Stream ResposeStream, string ContentEncoding)
-        {
-            if (null != ContentEncoding && ContentEncoding.Equals("gzip", StringComparison.InvariantCultureIgnoreCase))
-            {
-                using (this.Reader = new StreamReader(new GZipStream(ResposeStream, CompressionMode.Decompress), this.Encoding))
-                {
-                    this.ReturnData = this.Reader.ReadToEnd();
-                }
-            }
-            else
-            {
-                using (this.Reader = new StreamReader(ResposeStream, this.Encoding))
-                {
-                    this.ReturnData = this.Reader.ReadToEnd();
-                }
-            }
-            return this.ReturnData;
         }
         /// <summary>
         /// 防止缓存 给url添加参数
@@ -403,10 +358,8 @@ namespace ilab.KanSea.Chat.Helper
         /// <returns>新地址</returns>
         private string GetNewUrl(string targetUrl)
         {
-            if (targetUrl.IndexOf("?") != -1)
-                targetUrl += "&";
-            else
-                targetUrl += "?";
+            if (!HelperBase.IsHaveString(targetUrl, "http[s]?://")) { targetUrl = "http://" + targetUrl; }
+            if (HelperBase.IsHaveString(targetUrl, "\\?")) { targetUrl += "&"; } else { targetUrl += "?"; }
             targetUrl += HelperBase.GetRandomName();
             return targetUrl;
 

@@ -10,15 +10,16 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ilab.KanSea.Chat.Helper
 {
-	/// <summary>
-	/// Description of HelperBase.
-	/// </summary>
-	public class HelperBase
-	{
-		#region 方法
+    /// <summary>
+    /// Description of HelperBase.
+    /// </summary>
+    public class HelperBase
+    {
+        #region 方法
         /// <summary>
         /// 不重复随即名
         /// </summary>
@@ -54,7 +55,7 @@ namespace ilab.KanSea.Chat.Helper
             {
                 if (IsHaveString(input, pattern))
                 {
-                    return Regex.Match(input, pattern).Groups[S].Value;
+                    return Regex.Match(input, pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline).Groups[S].Value;
                 }
                 else
                 {
@@ -79,7 +80,7 @@ namespace ilab.KanSea.Chat.Helper
                 if (IsHaveString(input, pattern))
                 {
                     StrList = new List<String[]>();
-                    MatchCollection RegData = Regex.Matches(input, pattern);
+                    MatchCollection RegData = Regex.Matches(input, pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
                     for (int i = 0; i < RegData.Count; i++)
                     {
                         strtemp = null;
@@ -97,11 +98,32 @@ namespace ilab.KanSea.Chat.Helper
             catch { }
             return StrList;
         }
-
+        /// <summary>
+        /// Copy Stream to MemoryStream 
+        /// .Net 4.0 CopyTo();
+        /// </summary>
+        /// <param name="inputStream">Original Stream</param>
+        /// <returns>MemoryStream</returns>
+        public static MemoryStream CopyStream(Stream inputStream)
+        {
+            MemoryStream outputStream = new MemoryStream();
+            int Length = 256;
+            Byte[] buffer = new Byte[Length];
+            int bytesRead = inputStream.Read(buffer, 0, Length);
+            // write the required bytes
+            while (bytesRead > 0)
+            {
+                outputStream.Write(buffer, 0, bytesRead);
+                bytesRead = inputStream.Read(buffer, 0, Length);
+            }
+            inputStream.Close();
+            outputStream.Close();
+            return outputStream;
+        }
         public static void Msg(string text)
         {
             System.Windows.Forms.MessageBox.Show(text);
         }
-		#endregion
-	}
+        #endregion
+    }
 }

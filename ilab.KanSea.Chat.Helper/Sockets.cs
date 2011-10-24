@@ -230,18 +230,9 @@ namespace ilab.KanSea.Chat.Helper
             {
                 this.Receive(receiver);
             }
-#if DEBUG
-            catch (Exception e)
-            {
-                //System.Windows.Forms.MessageBox.Show("Receive2" +  e.Message);
-                //强制断开 掉线? 强制关闭?
+            catch{
                 this.closeClientSocket(receiver);
             }
-#else
-            catch(){
-                this.closeClientSocket(receiver);
-            }
-#endif
         }
         private int checkClientSocket(Socket receiver)
         {
