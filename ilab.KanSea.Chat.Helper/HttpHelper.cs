@@ -46,6 +46,7 @@ namespace ilab.KanSea.Chat.Helper
         /// 需要返回的数据对象
         /// </summary>
         private string ReturnData = "Error";
+        public bool AutoGetEncoding = false;
         /// <summary>
         /// 目标地址
         /// </summary>
@@ -130,7 +131,7 @@ namespace ilab.KanSea.Chat.Helper
             this.TargetUrl = null == targetUrl ?
                 this.TargetUrl :
                 targetUrl;
-            if (null == this.TargetUrl || "" == this.TargetUrl) { return; }
+            if (string.IsNullOrEmpty(this.TargetUrl)) { return; }
             //请求的URL地址
             this.TargetUrl = this.GetNewUrl(this.TargetUrl);
             //请求方式Get或者Post
@@ -169,27 +170,27 @@ namespace ilab.KanSea.Chat.Helper
         /// Get
         /// </summary>
         /// <param name="targetUrl">URL</param>
-        public void GetRequest(string targetUrl)
+        public string GetRequest(string targetUrl)
         {
-            this.GetRequest(targetUrl, methodType.GET.ToString(), null, null, null, null, null, null);
+            return this.GetRequest(targetUrl, methodType.GET.ToString(), null, null, null, null, null, null);
         }
         /// <summary>
         /// Post 
         /// </summary>
         /// <param name="targetUrl">URL</param>
         /// <param name="strPostdata">Post Data</param>
-        public void GetRequest(string targetUrl, string strPostdata)
+        public string GetRequest(string targetUrl, string strPostdata)
         {
-            this.GetRequest(targetUrl, methodType.POST.ToString(), null, null, null, null, null, strPostdata);
+            return this.GetRequest(targetUrl, methodType.POST.ToString(), null, null, null, null, null, strPostdata);
         }
         /// <summary>
         /// Get
         /// </summary>
         /// <param name="targetUrl">URL</param>
         /// <param name="encoding">Encoding</param>
-        public void GetRequest(string targetUrl, Encoding encoding)
+        public string GetRequest(string targetUrl, Encoding encoding)
         {
-            this.GetRequest(targetUrl, methodType.GET.ToString(), null, null, null, encoding, null, null);
+            return this.GetRequest(targetUrl, methodType.GET.ToString(), null, null, null, encoding, null, null);
         }
         /// <summary>
         /// Post
@@ -197,18 +198,18 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="targetUrl">URL</param>
         /// <param name="strPostdata">Post Data</param>
         /// <param name="encoding">Encoding</param>
-        public void GetRequest(string targetUrl, string strPostdata, Encoding encoding)
+        public string GetRequest(string targetUrl, string strPostdata, Encoding encoding)
         {
-            this.GetRequest(targetUrl, methodType.POST.ToString(), null, null, null, encoding, null, strPostdata);
+            return this.GetRequest(targetUrl, methodType.POST.ToString(), null, null, null, encoding, null, strPostdata);
         }
         /// <summary>
         /// Get
         /// </summary>
         /// <param name="targetUrl">URL</param>
         /// <param name="cookies">Cookies</param>
-        public void GetRequest(string targetUrl, CookieContainer cookies)
+        public string GetRequest(string targetUrl, CookieContainer cookies)
         {
-            this.GetRequest(targetUrl, methodType.GET.ToString(), null, null, null, null, cookies, null);
+            return this.GetRequest(targetUrl, methodType.GET.ToString(), null, null, null, null, cookies, null);
         }
         /// <summary>
         /// Post
@@ -216,9 +217,9 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="targetUrl">URL</param>
         /// <param name="strPostdata">Post Data</param>
         /// <param name="cookies">Cookies</param>
-        public void GetRequest(string targetUrl, string strPostdata, CookieContainer cookies)
+        public string GetRequest(string targetUrl, string strPostdata, CookieContainer cookies)
         {
-            this.GetRequest(targetUrl, methodType.POST.ToString(), null, null, null, null, cookies, strPostdata);
+            return this.GetRequest(targetUrl, methodType.POST.ToString(), null, null, null, null, cookies, strPostdata);
         }
         /// <summary>
         /// Get
@@ -226,9 +227,9 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="targetUrl">URL</param>
         /// <param name="encoding">Encoding</param>
         /// <param name="cookies">Cookies</param>
-        public void GetRequest(string targetUrl, Encoding encoding, CookieContainer cookies)
+        public string GetRequest(string targetUrl, Encoding encoding, CookieContainer cookies)
         {
-            this.GetRequest(targetUrl, methodType.GET.ToString(), null, null, null, encoding, cookies, null);
+            return this.GetRequest(targetUrl, methodType.GET.ToString(), null, null, null, encoding, cookies, null);
         }
         /// <summary>
         /// Post
@@ -237,9 +238,9 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="strPostdata">Post Data</param>
         /// <param name="encoding">Encoding</param>
         /// <param name="cookies">Cookies</param>
-        public void GetRequest(string targetUrl, string strPostdata, Encoding encoding, CookieContainer cookies)
+        public string GetRequest(string targetUrl, string strPostdata, Encoding encoding, CookieContainer cookies)
         {
-            this.GetRequest(targetUrl, methodType.POST.ToString(), null, null, null, encoding, cookies, strPostdata);
+            return this.GetRequest(targetUrl, methodType.POST.ToString(), null, null, null, encoding, cookies, strPostdata);
         }
         /// <summary>
         /// Get
@@ -250,9 +251,9 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="userAgent">User Agent</param>
         /// <param name="encoding">Encoding</param>
         /// <param name="cookies">Cookies</param>
-        public void GetRequest(string targetUrl, string accept, string contentType, string userAgent, Encoding encoding, CookieContainer cookies)
+        public string GetRequest(string targetUrl, string accept, string contentType, string userAgent, Encoding encoding, CookieContainer cookies)
         {
-            this.GetRequest(targetUrl, methodType.GET.ToString(), accept, contentType, userAgent, encoding, cookies, null);
+            return this.GetRequest(targetUrl, methodType.GET.ToString(), accept, contentType, userAgent, encoding, cookies, null);
         }
         /// <summary>
         /// Post
@@ -264,9 +265,9 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="encoding">Encoding</param>
         /// <param name="cookies">Cookies</param>
         /// <param name="strPostdata">Post Data</param>
-        public void GetRequest(string targetUrl, string accept, string contentType, string userAgent, Encoding encoding, CookieContainer cookies, string strPostdata)
+        public string GetRequest(string targetUrl, string accept, string contentType, string userAgent, Encoding encoding, CookieContainer cookies, string strPostdata)
         {
-            this.GetRequest(targetUrl, methodType.POST.ToString(), accept, contentType, userAgent, encoding, cookies, strPostdata);
+            return this.GetRequest(targetUrl, methodType.POST.ToString(), accept, contentType, userAgent, encoding, cookies, strPostdata);
         }
         /// <summary>
         /// Post And Get
@@ -279,7 +280,81 @@ namespace ilab.KanSea.Chat.Helper
         /// <param name="encoding">Encoding</param>
         /// <param name="cookies">Cookies</param>
         /// <param name="strPostdata">Post Data</param>
-        public void GetRequest(string targetUrl, string method, string accept, string contentType, string userAgent, Encoding encoding, CookieContainer cookies, string strPostdata)
+        public string GetRequest(string targetUrl, string method, string accept, string contentType, string userAgent, Encoding encoding, CookieContainer cookies, string strPostdata)
+        {
+            this.ReturnData = this.getHtml(targetUrl, method, accept, contentType, userAgent, encoding, cookies, strPostdata);
+            //2.0
+            if (Encoding.Default == this.Encoding&&this.AutoGetEncoding)
+            {
+                string charset = HelperBase.GetString(this.ReturnData, "<meta([^<]*)charset=([^<]*)[\"']", 2);
+                if (!string.IsNullOrEmpty(charset))
+                {
+                    this.Encoding = Encoding.GetEncoding(charset);
+                    this.ReturnData = this.getHtml(targetUrl, method, accept, contentType, userAgent, encoding, cookies, strPostdata);
+                }
+            }
+            /*
+            //4.0
+            if (Encoding.Default == this.Encoding&&this.AutoGetEncoding)
+            {
+                MemoryStream _stream = new MemoryStream();
+
+                if (response.ContentEncoding != null && response.ContentEncoding.Equals("gzip", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    //开始读取流并设置编码方式
+                    new GZipStream(response.GetResponseStream(), CompressionMode.Decompress).CopyTo(_stream, 10240);
+                }
+                else
+                {
+                    response.GetResponseStream().CopyTo(_stream, 10240);
+                }
+                byte[] RawResponse = _stream.ToArray();
+              
+            
+                string temp = Encoding.Default.GetString(RawResponse, 0, RawResponse.Length);
+                //<meta(.*?)charset([\s]?)=[^>](.*?)>
+                Match meta = Regex.Match(temp, "<meta([^<]*)charset=([^<]*)[\"']", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                string charter = (meta.Groups.Count > 2) ? meta.Groups[2].Value : string.Empty;
+                charter = charter.Replace("\"", string.Empty).Replace("'", string.Empty).Replace(";", string.Empty);
+                if (charter.Length > 0)
+                {
+                    encoding = Encoding.GetEncoding(charter);
+                }
+                else
+                {
+                    if (response.CharacterSet.ToLower().Trim() == "iso-8859-1")
+                    {
+                        encoding = Encoding.GetEncoding("gbk");
+                    }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(response.CharacterSet.Trim()))
+                        {
+                            encoding = Encoding.UTF8;
+                        }
+                        else
+                        {
+                            encoding = Encoding.GetEncoding(response.CharacterSet);
+                        }
+                    }
+                }
+                returnData = encoding.GetString(RawResponse);
+            }
+             */
+            return this.ReturnData;
+        }
+        /// <summary>
+        /// Post And Get
+        /// </summary>
+        /// <param name="targetUrl">URL</param>
+        /// <param name="method">Method</param>
+        /// <param name="accept">Accept</param>
+        /// <param name="contentType">Content Type</param>
+        /// <param name="userAgent">User Agent</param>
+        /// <param name="encoding">Encoding</param>
+        /// <param name="cookies">Cookies</param>
+        /// <param name="strPostdata">Post Data</param>
+        private string getHtml(string targetUrl, string method, string accept, string contentType, string userAgent, Encoding encoding, CookieContainer cookies, string strPostdata)
         {
             this.SetRequest(targetUrl, method, accept, contentType, userAgent, encoding, cookies);
             if (null != strPostdata && methodType.POST == this.Method)
@@ -287,39 +362,39 @@ namespace ilab.KanSea.Chat.Helper
                 byte[] buffer = this.Encoding.GetBytes(strPostdata);
                 this.Request.ContentLength = buffer.Length;
                 this.Request.GetRequestStream().Write(buffer, 0, buffer.Length);
-                //关闭没问题把......
                 this.Request.GetRequestStream().Close();
-                #region 得到请求的response
-                try
-                {
-                    using (this.Response = (HttpWebResponse)this.Request.GetResponse())
-                    {
-                        Stream ResposeStream = this.Response.GetResponseStream();
-
-                        if (null != this.Response.ContentEncoding && this.Response.ContentEncoding.Equals("gzip", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            using (this.Reader = new StreamReader(new GZipStream(this.Response.GetResponseStream(), CompressionMode.Decompress), this.Encoding))
-                            {
-                                this.ReturnData = this.Reader.ReadToEnd();
-                            }
-                        }
-                        else
-                        {
-                            using (this.Reader = new StreamReader(this.Response.GetResponseStream(), this.Encoding))
-                            {
-                                this.ReturnData = this.Reader.ReadToEnd();
-                            }
-                        }
-
-                        //未设置编码 或设为系统编码时  自动检测页面编码
-                        if (Encoding.Default == this.Encoding){
-                            string charset = HelperBase.GetString(this.ReturnData, "<meta([^<]*)charset=([^<]*)[\"']",2);
-                        }
-                    }
-                }
-                catch { ReturnData = "Error"; }
-                #endregion
             }
+            #region 得到请求的response
+            try
+            {
+                using (this.Response = (HttpWebResponse)this.Request.GetResponse())
+                {
+                    Stream ResposeStream = this.Response.GetResponseStream();
+                    string ContentEncoding = this.Response.ContentEncoding;
+                    this.ReturnData = this.getHtmlByEncoding(ResposeStream, ContentEncoding);
+                }
+            }
+            catch { this.ReturnData = "Error"; }
+            return this.ReturnData;
+            #endregion
+        }
+        private string getHtmlByEncoding(Stream ResposeStream, string ContentEncoding)
+        {
+            if (null != ContentEncoding && ContentEncoding.Equals("gzip", StringComparison.InvariantCultureIgnoreCase))
+            {
+                using (this.Reader = new StreamReader(new GZipStream(ResposeStream, CompressionMode.Decompress), this.Encoding))
+                {
+                    this.ReturnData = this.Reader.ReadToEnd();
+                }
+            }
+            else
+            {
+                using (this.Reader = new StreamReader(ResposeStream, this.Encoding))
+                {
+                    this.ReturnData = this.Reader.ReadToEnd();
+                }
+            }
+            return this.ReturnData;
         }
         /// <summary>
         /// 防止缓存 给url添加参数
