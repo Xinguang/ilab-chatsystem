@@ -12,7 +12,7 @@ using System;
 namespace ilab.KanSea.Chat.Helper
 {
 	/// <summary>
-	/// Description of TranslateGoogle.
+	/// Google Translate API
 	/// </summary>
 	partial class Translate
 	{
