@@ -168,6 +168,13 @@ namespace ilab.KanSea.Chat.Helper
         /// <summary>
         /// Get
         /// </summary>
+        public string GetRequest()
+        {
+            return this.GetRequest(this.TargetUrl, methodType.GET.ToString(), null, null, null, null, null, null);
+        }
+        /// <summary>
+        /// Get
+        /// </summary>
         /// <param name="targetUrl">URL</param>
         public string GetRequest(string targetUrl)
         {
@@ -347,7 +354,26 @@ namespace ilab.KanSea.Chat.Helper
                     }
                 }
             }
-            catch { resultData = "Error"; }
+            catch (WebException ex)
+            {
+                if (ex.Status == WebExceptionStatus.ProtocolError &&
+                    ex.Response != null)
+                {
+                    var resp = (HttpWebResponse)ex.Response;
+                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        resultData = "Error:Not found";
+                    }
+                    else
+                    {
+                        resultData = "Error:Forbidden";
+                    }
+                }
+                else
+                {
+                    resultData = "Error:Unknow";
+                }
+            }
             return resultData;
             #endregion
         }

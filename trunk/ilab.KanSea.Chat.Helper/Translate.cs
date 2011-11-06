@@ -16,6 +16,7 @@ namespace ilab.KanSea.Chat.Helper
 	/// </summary>
     public partial class Translate
 	{
+        private static HttpHelper _http = new HttpHelper();
 		public Translate()
 		{
 		}

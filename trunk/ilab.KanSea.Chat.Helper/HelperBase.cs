@@ -99,6 +99,36 @@ namespace ilab.KanSea.Chat.Helper
             return StrList;
         }
         /// <summary>
+        /// 获取匹配字符集
+        /// </summary>
+        /// <param name="input">被检测字符</param>
+        /// <param name="pattern">正则表达式</param>
+        /// <param name="S">index</param>
+        /// <returns>String[]</returns>
+        public static String[] GetString( Int32 S,string input, string pattern)
+        {
+            String[] StrList = null;
+            if (input == null) { return null; }
+            try
+            {
+                if (IsHaveString(input, pattern))
+                {
+                    MatchCollection RegData = Regex.Matches(input, pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline);
+                    StrList = new string[RegData.Count];
+                    for (int i = 0; i < RegData.Count; i++)
+                    {
+                        try
+                        {
+                            StrList[i] = RegData[i].Groups[S].Value;
+                        }
+                        catch { }
+                    }
+                }
+            }
+            catch { }
+            return StrList;
+        }
+        /// <summary>
         /// Copy Stream to MemoryStream 
         /// .Net 4.0 CopyTo();
         /// </summary>
