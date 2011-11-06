@@ -11,14 +11,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Ilab.KanSea.Chat.UI.Controls;
 
 namespace ilab.KanSea.Chat.Client
 {
 	/// <summary>
 	/// Description of MainForm.
 	/// </summary>
-	public partial class MainForm :BaseForm
+	public partial class MainForm :Ilab.KanSea.Chat.UI.BaseForm
 	{
 		public MainForm()
 		{
