@@ -17,7 +17,7 @@ namespace ilab.KanSea.Chat.Server
 	/// <summary>
 	/// Description of MainForm.
 	/// </summary>
-	public partial class MainForm : Form
+	public partial class MainForm : Ilab.KanSea.Chat.UI.BaseForm
 	{
 		public MainForm()
 		{
