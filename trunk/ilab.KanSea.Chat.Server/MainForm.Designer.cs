@@ -37,12 +37,50 @@ namespace ilab.KanSea.Chat.Server
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
-			// MainForm
-			// 
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Text = "ilab.KanSea.Chat.Server";
-			this.Name = "MainForm";
+            this.slang = new Ilab.KanSea.Chat.UI.Controls.Button();
+            this.TCPServer = new Ilab.KanSea.Chat.UI.Controls.Button();
+            this.SuspendLayout();
+            // 
+            // slang
+            // 
+            this.slang.BackColor = System.Drawing.Color.Transparent;
+            this.slang.BackImg = null;
+            this.slang.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.slang.Location = new System.Drawing.Point(23, 52);
+            this.slang.Name = "slang";
+            this.slang.Size = new System.Drawing.Size(75, 23);
+            this.slang.TabIndex = 4;
+            this.slang.Text = "俗語収集";
+            this.slang.UseVisualStyleBackColor = false;
+            // 
+            // TCPServer
+            // 
+            this.TCPServer.BackColor = System.Drawing.Color.Transparent;
+            this.TCPServer.BackImg = null;
+            this.TCPServer.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.TCPServer.Location = new System.Drawing.Point(127, 52);
+            this.TCPServer.Name = "TCPServer";
+            this.TCPServer.Size = new System.Drawing.Size(75, 23);
+            this.TCPServer.TabIndex = 5;
+            this.TCPServer.Text = "TCPserver";
+            this.TCPServer.UseVisualStyleBackColor = false;
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(226, 127);
+            this.Controls.Add(this.slang);
+            this.Controls.Add(this.TCPServer);
+            this.Name = "MainForm";
+            this.Text = "ilab.KanSea.Chat.Server";
+            this.Controls.SetChildIndex(this.TCPServer, 0);
+            this.Controls.SetChildIndex(this.slang, 0);
+            this.ResumeLayout(false);
+
 		}
+
+        private Ilab.KanSea.Chat.UI.Controls.Button slang;
+        private Ilab.KanSea.Chat.UI.Controls.Button TCPServer;
 	}
 }

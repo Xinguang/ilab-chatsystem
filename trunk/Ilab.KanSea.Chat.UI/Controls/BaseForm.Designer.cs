@@ -45,11 +45,11 @@ namespace Ilab.KanSea.Chat.UI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
-            this.btn_restore = new Button();
-            this.btn_mini = new Button();
-            this.btn_max = new Button();
-            this.btn_close = new Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
+            this.btn_restore = new Ilab.KanSea.Chat.UI.Controls.Button();
+            this.btn_mini = new Ilab.KanSea.Chat.UI.Controls.Button();
+            this.btn_max = new Ilab.KanSea.Chat.UI.Controls.Button();
+            this.btn_close = new Ilab.KanSea.Chat.UI.Controls.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
@@ -57,7 +57,7 @@ namespace Ilab.KanSea.Chat.UI
             // 
             this.btn_restore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_restore.BackColor = System.Drawing.Color.Transparent;
-            this.btn_restore.BackImg = ImageObject.GetResBitmap("Ilab.KanSea.Chat.UI.Resources.btn_restore.png");
+            this.btn_restore.BackImg = ((System.Drawing.Bitmap)(resources.GetObject("btn_restore.BackImg")));
             this.btn_restore.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.btn_restore.IsTabFocus = false;
             this.btn_restore.Location = new System.Drawing.Point(160, 30);
@@ -72,7 +72,7 @@ namespace Ilab.KanSea.Chat.UI
             // 
             this.btn_mini.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_mini.BackColor = System.Drawing.Color.Transparent;
-            this.btn_mini.BackImg = ImageObject.GetResBitmap("Ilab.KanSea.Chat.UI.Resources.btn_mini.png");
+            this.btn_mini.BackImg = ((System.Drawing.Bitmap)(resources.GetObject("btn_mini.BackImg")));
             this.btn_mini.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.btn_mini.IsTabFocus = false;
             this.btn_mini.Location = new System.Drawing.Point(131, 6);
@@ -87,7 +87,7 @@ namespace Ilab.KanSea.Chat.UI
             // 
             this.btn_max.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_max.BackColor = System.Drawing.Color.Transparent;
-            this.btn_max.BackImg = ImageObject.GetResBitmap("Ilab.KanSea.Chat.UI.Resources.btn_max.png");
+            this.btn_max.BackImg = ((System.Drawing.Bitmap)(resources.GetObject("btn_max.BackImg")));
             this.btn_max.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.btn_max.IsTabFocus = false;
             this.btn_max.Location = new System.Drawing.Point(160, 6);
@@ -102,7 +102,7 @@ namespace Ilab.KanSea.Chat.UI
             // 
             this.btn_close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_close.BackColor = System.Drawing.Color.Transparent;
-            this.btn_close.BackImg = ImageObject.GetResBitmap("Ilab.KanSea.Chat.UI.Resources.btn_close.png");
+            this.btn_close.BackImg = ((System.Drawing.Bitmap)(resources.GetObject("btn_close.BackImg")));
             this.btn_close.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.btn_close.IsTabFocus = false;
             this.btn_close.Location = new System.Drawing.Point(191, 6);
@@ -129,6 +129,7 @@ namespace Ilab.KanSea.Chat.UI
             this.Controls.Add(this.btn_mini);
             this.Controls.Add(this.btn_max);
             this.Controls.Add(this.btn_close);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BaseForm";
             this.Text = "BaseForm";
             this.Resize += new System.EventHandler(this.AlBaseForm_Resize);
