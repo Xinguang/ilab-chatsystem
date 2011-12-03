@@ -218,7 +218,7 @@ namespace ilab.KanSea.Chat.Helper
                     System.Windows.Forms.MessageBox.Show("Receive1" + e.Message);
                 }
 #else
-                catch(){
+                catch{
                 }
 #endif
             }
