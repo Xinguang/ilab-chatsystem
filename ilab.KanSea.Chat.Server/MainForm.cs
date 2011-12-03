@@ -25,7 +25,7 @@ namespace ilab.KanSea.Chat.Server
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
-			
+            this.Size = new System.Drawing.Size(226, 127);
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//

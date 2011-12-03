@@ -37,12 +37,113 @@ namespace ilab.KanSea.Chat.Client
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
-			// MainForm
-			// 
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Text = "ilab.KanSea.Chat.Client";
-			this.Name = "MainForm";
+            this.MessageRecord = new Ilab.KanSea.Chat.UI.Controls.TextBox();
+            this.MessageInput = new Ilab.KanSea.Chat.UI.Controls.TextBox();
+            this.MessageClose = new Ilab.KanSea.Chat.UI.Controls.Button();
+            this.MessageSend = new Ilab.KanSea.Chat.UI.Controls.Button();
+            this.UserName = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // MessageRecord
+            // 
+            this.MessageRecord.BackColor = System.Drawing.Color.Transparent;
+            this.MessageRecord.font = new System.Drawing.Font("微软雅黑", 9F);
+            this.MessageRecord.Ico = null;
+            this.MessageRecord.IcoPadding = new System.Windows.Forms.Padding(3, 3, 0, 0);
+            this.MessageRecord.Isico = false;
+            this.MessageRecord.IsPass = false;
+            this.MessageRecord.lines = new string[0];
+            this.MessageRecord.Location = new System.Drawing.Point(12, 40);
+            this.MessageRecord.MaxLength = 32767;
+            this.MessageRecord.Multiline = true;
+            this.MessageRecord.Name = "MessageRecord";
+            this.MessageRecord.PassChar = '\0';
+            this.MessageRecord.ReadOnly = true;
+            this.MessageRecord.Size = new System.Drawing.Size(422, 190);
+            this.MessageRecord.TabIndex = 4;
+            this.MessageRecord.text = "";
+            // 
+            // MessageInput
+            // 
+            this.MessageInput.BackColor = System.Drawing.Color.Transparent;
+            this.MessageInput.font = new System.Drawing.Font("微软雅黑", 9F);
+            this.MessageInput.Ico = null;
+            this.MessageInput.IcoPadding = new System.Windows.Forms.Padding(3, 3, 0, 0);
+            this.MessageInput.Isico = false;
+            this.MessageInput.IsPass = false;
+            this.MessageInput.lines = new string[0];
+            this.MessageInput.Location = new System.Drawing.Point(13, 236);
+            this.MessageInput.MaxLength = 32767;
+            this.MessageInput.Multiline = true;
+            this.MessageInput.Name = "MessageInput";
+            this.MessageInput.PassChar = '\0';
+            this.MessageInput.ReadOnly = false;
+            this.MessageInput.Size = new System.Drawing.Size(421, 103);
+            this.MessageInput.TabIndex = 5;
+            this.MessageInput.text = "";
+            // 
+            // MessageClose
+            // 
+            this.MessageClose.BackColor = System.Drawing.Color.Transparent;
+            this.MessageClose.BackImg = null;
+            this.MessageClose.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.MessageClose.Location = new System.Drawing.Point(266, 345);
+            this.MessageClose.Name = "MessageClose";
+            this.MessageClose.Size = new System.Drawing.Size(75, 23);
+            this.MessageClose.TabIndex = 6;
+            this.MessageClose.Text = "Close";
+            this.MessageClose.UseVisualStyleBackColor = false;
+            // 
+            // MessageSend
+            // 
+            this.MessageSend.BackColor = System.Drawing.Color.Transparent;
+            this.MessageSend.BackImg = null;
+            this.MessageSend.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.MessageSend.Location = new System.Drawing.Point(353, 345);
+            this.MessageSend.Name = "MessageSend";
+            this.MessageSend.Size = new System.Drawing.Size(75, 23);
+            this.MessageSend.TabIndex = 7;
+            this.MessageSend.Text = "Send";
+            this.MessageSend.UseVisualStyleBackColor = false;
+            // 
+            // UserName
+            // 
+            this.UserName.AutoSize = true;
+            this.UserName.BackColor = System.Drawing.Color.Transparent;
+            this.UserName.Location = new System.Drawing.Point(13, 13);
+            this.UserName.Name = "UserName";
+            this.UserName.Size = new System.Drawing.Size(58, 12);
+            this.UserName.TabIndex = 8;
+            this.UserName.Text = "UserName";
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(478, 456);
+            this.Controls.Add(this.UserName);
+            this.Controls.Add(this.MessageSend);
+            this.Controls.Add(this.MessageInput);
+            this.Controls.Add(this.MessageRecord);
+            this.Controls.Add(this.MessageClose);
+            this.FormSystemBtnSet = Ilab.KanSea.Chat.UI.BaseForm.FormSystemBtn.btn_miniAndbtn_close;
+            this.IsResize = false;
+            this.Name = "MainForm";
+            this.Text = "ilab.KanSea.Chat.Client";
+            this.Controls.SetChildIndex(this.MessageClose, 0);
+            this.Controls.SetChildIndex(this.MessageRecord, 0);
+            this.Controls.SetChildIndex(this.MessageInput, 0);
+            this.Controls.SetChildIndex(this.MessageSend, 0);
+            this.Controls.SetChildIndex(this.UserName, 0);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
 		}
+
+        private Ilab.KanSea.Chat.UI.Controls.TextBox MessageRecord;
+        private Ilab.KanSea.Chat.UI.Controls.TextBox MessageInput;
+        private Ilab.KanSea.Chat.UI.Controls.Button MessageClose;
+        private Ilab.KanSea.Chat.UI.Controls.Button MessageSend;
+        private System.Windows.Forms.Label UserName;
 	}
 }
