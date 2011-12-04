@@ -39,6 +39,8 @@ namespace ilab.KanSea.Chat.Server
 		{
             this.slang = new Ilab.KanSea.Chat.UI.Controls.Button();
             this.TCPServer = new Ilab.KanSea.Chat.UI.Controls.Button();
+            this.Server_msg = new System.Windows.Forms.Label();
+            this.StopServer = new Ilab.KanSea.Chat.UI.Controls.Button();
             this.SuspendLayout();
             // 
             // slang
@@ -52,6 +54,7 @@ namespace ilab.KanSea.Chat.Server
             this.slang.TabIndex = 4;
             this.slang.Text = "俗語収集";
             this.slang.UseVisualStyleBackColor = false;
+            this.slang.Click += new System.EventHandler(this.slang_Click);
             // 
             // TCPServer
             // 
@@ -64,23 +67,55 @@ namespace ilab.KanSea.Chat.Server
             this.TCPServer.TabIndex = 5;
             this.TCPServer.Text = "TCPserver";
             this.TCPServer.UseVisualStyleBackColor = false;
+            this.TCPServer.Click += new System.EventHandler(this.TCPServer_Click);
+            // 
+            // Server_msg
+            // 
+            this.Server_msg.AutoSize = true;
+            this.Server_msg.BackColor = System.Drawing.Color.Transparent;
+            this.Server_msg.Location = new System.Drawing.Point(21, 12);
+            this.Server_msg.Name = "Server_msg";
+            this.Server_msg.Size = new System.Drawing.Size(62, 12);
+            this.Server_msg.TabIndex = 6;
+            this.Server_msg.Text = "ChatServer";
+            // 
+            // StopServer
+            // 
+            this.StopServer.BackColor = System.Drawing.Color.Transparent;
+            this.StopServer.BackImg = null;
+            this.StopServer.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.StopServer.Location = new System.Drawing.Point(127, 52);
+            this.StopServer.Name = "StopServer";
+            this.StopServer.Size = new System.Drawing.Size(75, 23);
+            this.StopServer.TabIndex = 7;
+            this.StopServer.Text = "Stopserver";
+            this.StopServer.UseVisualStyleBackColor = false;
+            this.StopServer.Visible = false;
+            this.StopServer.Click += new System.EventHandler(this.StopServer_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(226, 127);
+            this.ClientSize = new System.Drawing.Size(290, 279);
+            this.Controls.Add(this.StopServer);
+            this.Controls.Add(this.Server_msg);
             this.Controls.Add(this.slang);
             this.Controls.Add(this.TCPServer);
             this.Name = "MainForm";
             this.Text = "ilab.KanSea.Chat.Server";
             this.Controls.SetChildIndex(this.TCPServer, 0);
             this.Controls.SetChildIndex(this.slang, 0);
+            this.Controls.SetChildIndex(this.Server_msg, 0);
+            this.Controls.SetChildIndex(this.StopServer, 0);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
         private Ilab.KanSea.Chat.UI.Controls.Button slang;
         private Ilab.KanSea.Chat.UI.Controls.Button TCPServer;
+        private System.Windows.Forms.Label Server_msg;
+        private Ilab.KanSea.Chat.UI.Controls.Button StopServer;
 	}
 }

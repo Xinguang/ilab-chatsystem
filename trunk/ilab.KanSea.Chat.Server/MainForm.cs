@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using ilab.KanSea.Chat.Helper;
 
 namespace ilab.KanSea.Chat.Server
 {
@@ -30,5 +31,28 @@ namespace ilab.KanSea.Chat.Server
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 		}
+
+        private void TCPServer_Click(object sender, EventArgs e)
+        {
+            Sockets TcpServer = Sockets.getInstance();
+            TcpServer.serverStart();
+            this.Server_msg.Text = "Server is running";
+            this.StopServer.Visible = true;
+            this.TCPServer.Visible = false;
+        }
+
+        private void slang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StopServer_Click(object sender, EventArgs e)
+        {
+            Sockets TcpServer = Sockets.getInstance();
+            TcpServer.serverStop();
+            this.Server_msg.Text = "Server is stopped";
+            this.StopServer.Visible = false;
+            this.TCPServer.Visible = true;
+        }
 	}
 }
