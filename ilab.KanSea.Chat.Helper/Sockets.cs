@@ -95,7 +95,7 @@ namespace ilab.KanSea.Chat.Helper
 		/// <returns></returns>
 		private IPAddress getServerIP(){
 			try{
-				return Dns.GetHostEntry("kansea.com").AddressList[0];
+				return Dns.GetHostEntry("chat.kansea.com").AddressList[0];
 			}catch{
 				return IPAddress.Parse("127.0.0.1");
 			}
@@ -133,6 +133,13 @@ namespace ilab.KanSea.Chat.Helper
 			this._listen_thread.IsBackground = true;
 			this._listen_thread.Start();
 		}
+        /// <summary>
+        /// 停止服务
+        /// </summary>
+        public void serverStop()
+        {
+            this._listen_thread.Abort();
+        }
 		/// <summary>
 		/// 监听线程
 		/// </summary>
@@ -146,14 +153,27 @@ namespace ilab.KanSea.Chat.Helper
                 clientThread.Start(clientSocket);
 			}
 		}
-		/// <summary>
-		/// 客户端监听
-		/// </summary>
+        /// <summary>
+        /// 客户端监听
+        /// </summary>
         public void clientListen()
         {
-            this._sender_thread = new Thread(new ThreadStart(this.clientListener));
-            this._sender_thread.IsBackground = true;
-            this._sender_thread.Start();
+            if (null == this._sender_thread)
+            {
+                this._sender_thread = new Thread(new ThreadStart(this.clientListener));
+                this._sender_thread.IsBackground = true;
+                this._sender_thread.Start();
+            }
+        }
+        /// <summary>
+        /// 停止客户端监听
+        /// </summary>
+        public void clientStop()
+        {
+            if (null != this._sender_thread)
+            {
+                this._sender_thread.Abort();
+            }
         }
         /// <summary>
         /// 客户端监听线程

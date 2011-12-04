@@ -47,10 +47,19 @@
     <Compile Include="..\Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ilab.KanSea.Chat.Helper\ilab.KanSea.Chat.Helper.csproj">
+      <Project>{20D16379-80D2-4FF3-B1F2-244BC09AA021}</Project>
+      <Name>ilab.KanSea.Chat.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ilab.KanSea.Chat.UI\Ilab.KanSea.Chat.UI.csproj">
       <Project>{9D734669-6BFD-4CD0-B527-ED622CDB608D}</Project>
       <Name>Ilab.KanSea.Chat.UI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>
