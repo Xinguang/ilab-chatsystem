@@ -24,4 +24,9 @@ namespace ilab.KanSea.Chat.Helper.Const
         public const string Table_English = "english";
         public const string Table_Slang = "slang";
     }
+    public class Socktes_Server
+    {
+        public const Int32 ServerPort = 125;
+        public const Int32 headerLength = 20;
+    }
 }

@@ -57,5 +57,17 @@ namespace ilab.KanSea.Chat.Helper.model
         /// Send the message of the user
         /// </summary>
         SendMsgUser = 512,
+        /// <summary>
+        /// loginOK
+        /// </summary>
+        LocalFormLoginOK = 1024,
+        /// <summary>
+        /// loginError
+        /// </summary>
+        LocalFormLoginError = 2048,
+        /// <summary>
+        /// GetMessageFromServer
+        /// </summary>
+        LocalFormMessageAdd = 4096,
     }
 }
