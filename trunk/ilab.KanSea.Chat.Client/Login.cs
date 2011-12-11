@@ -24,8 +24,10 @@ namespace ilab.KanSea.Chat.Client
         private string system_lang = System.Threading.Thread.CurrentThread.CurrentCulture.Name.ToLower();
 
         private Sockets clientSocket = Sockets.getInstance();
-		public Login()
+        private MainForm parentForm = null;
+		public Login(MainForm pFrom)
 		{
+            this.parentForm = pFrom;
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
@@ -39,6 +41,7 @@ namespace ilab.KanSea.Chat.Client
 
         private void button_Close_Click(object sender, EventArgs e)
         {
+            this.parentForm.Close();
             this.Close();
         }
 
@@ -86,6 +89,10 @@ namespace ilab.KanSea.Chat.Client
             try
             {
                 this.clientSocket.send(userInfo, MessageStatus.Login);
+                ///////////////
+                this.Close();
+                this.parentForm.init();
+                ///////////////
                 this.clientSocket.clientListen();
             }
             catch (Exception err)

@@ -39,9 +39,11 @@ namespace ilab.KanSea.Chat.Client
 		{
             this.MessageRecord = new Ilab.KanSea.Chat.UI.Controls.TextBox();
             this.MessageInput = new Ilab.KanSea.Chat.UI.Controls.TextBox();
-            this.MessageClose = new Ilab.KanSea.Chat.UI.Controls.Button();
             this.MessageSend = new Ilab.KanSea.Chat.UI.Controls.Button();
             this.UserName = new System.Windows.Forms.Label();
+            this.toolTips1 = new Ilab.KanSea.Chat.UI.Controls.ToolTips();
+            this.MessageTranslate = new Ilab.KanSea.Chat.UI.Controls.Button();
+            this.Translateto = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // MessageRecord
@@ -82,18 +84,6 @@ namespace ilab.KanSea.Chat.Client
             this.MessageInput.TabIndex = 5;
             this.MessageInput.text = "";
             // 
-            // MessageClose
-            // 
-            this.MessageClose.BackColor = System.Drawing.Color.Transparent;
-            this.MessageClose.BackImg = null;
-            this.MessageClose.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.MessageClose.Location = new System.Drawing.Point(266, 345);
-            this.MessageClose.Name = "MessageClose";
-            this.MessageClose.Size = new System.Drawing.Size(75, 23);
-            this.MessageClose.TabIndex = 6;
-            this.MessageClose.Text = "Close";
-            this.MessageClose.UseVisualStyleBackColor = false;
-            // 
             // MessageSend
             // 
             this.MessageSend.BackColor = System.Drawing.Color.Transparent;
@@ -116,34 +106,86 @@ namespace ilab.KanSea.Chat.Client
             this.UserName.TabIndex = 8;
             this.UserName.Text = "UserName";
             // 
+            // toolTips1
+            // 
+            this.toolTips1.is_show = false;
+            this.toolTips1.Location = new System.Drawing.Point(12, 389);
+            this.toolTips1.Name = "toolTips1";
+            this.toolTips1.Size = new System.Drawing.Size(150, 150);
+            this.toolTips1.TabIndex = 9;
+            // 
+            // MessageTranslate
+            // 
+            this.MessageTranslate.BackColor = System.Drawing.Color.Transparent;
+            this.MessageTranslate.BackImg = null;
+            this.MessageTranslate.BacklightLTRB = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.MessageTranslate.Location = new System.Drawing.Point(15, 345);
+            this.MessageTranslate.Name = "MessageTranslate";
+            this.MessageTranslate.Size = new System.Drawing.Size(75, 23);
+            this.MessageTranslate.TabIndex = 10;
+            this.MessageTranslate.Text = "Translate to";
+            this.MessageTranslate.UseVisualStyleBackColor = false;
+            this.MessageTranslate.Click += new System.EventHandler(this.MessageTranslate_Click);
+            this.MessageTranslate.MouseEnter += new System.EventHandler(this.MessageTranslate_Click);
+            // 
+            // Translateto
+            // 
+            this.Translateto.FormattingEnabled = true;
+            this.Translateto.Items.AddRange(new object[] {
+            "Local->English",
+            "Local->Simplified Chinese",
+            "Local->Traditional Chinese",
+            "Local->Japanese",
+            "Simplified Chinese->English",
+            "Simplified Chinese->Japanese",
+            "Traditional Chinese->English",
+            "Traditional Chinese->Japanese",
+            "Japanese->English",
+            "Japanese->Simplified Chinese",
+            "Japanese->Traditional Chinese",
+            "English->Simplified Chinese",
+            "English->Traditional Chinese",
+            "English->Japanese"});
+            this.Translateto.Location = new System.Drawing.Point(96, 345);
+            this.Translateto.Name = "Translateto";
+            this.Translateto.Size = new System.Drawing.Size(153, 20);
+            this.Translateto.TabIndex = 11;
+            this.Translateto.Text = "Local language->English";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 456);
+            this.ClientSize = new System.Drawing.Size(446, 377);
+            this.Controls.Add(this.Translateto);
+            this.Controls.Add(this.MessageTranslate);
+            this.Controls.Add(this.toolTips1);
             this.Controls.Add(this.UserName);
             this.Controls.Add(this.MessageSend);
             this.Controls.Add(this.MessageInput);
             this.Controls.Add(this.MessageRecord);
-            this.Controls.Add(this.MessageClose);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.FormSystemBtnSet = Ilab.KanSea.Chat.UI.BaseForm.FormSystemBtn.btn_miniAndbtn_close;
             this.IsResize = false;
             this.Name = "MainForm";
             this.Text = "ilab.KanSea.Chat.Client";
-            this.Controls.SetChildIndex(this.MessageClose, 0);
             this.Controls.SetChildIndex(this.MessageRecord, 0);
             this.Controls.SetChildIndex(this.MessageInput, 0);
             this.Controls.SetChildIndex(this.MessageSend, 0);
             this.Controls.SetChildIndex(this.UserName, 0);
+            this.Controls.SetChildIndex(this.toolTips1, 0);
+            this.Controls.SetChildIndex(this.MessageTranslate, 0);
+            this.Controls.SetChildIndex(this.Translateto, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
 		}
-
         private Ilab.KanSea.Chat.UI.Controls.TextBox MessageRecord;
         private Ilab.KanSea.Chat.UI.Controls.TextBox MessageInput;
-        private Ilab.KanSea.Chat.UI.Controls.Button MessageClose;
         private Ilab.KanSea.Chat.UI.Controls.Button MessageSend;
         private System.Windows.Forms.Label UserName;
+        private Ilab.KanSea.Chat.UI.Controls.ToolTips toolTips1;
+        private Ilab.KanSea.Chat.UI.Controls.Button MessageTranslate;
+        private System.Windows.Forms.ComboBox Translateto;
 	}
 }

@@ -133,14 +133,15 @@ namespace ilab.KanSea.Chat.Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 172);
+            this.ClientSize = new System.Drawing.Size(313, 248);
             this.Controls.Add(this.label_Password);
             this.Controls.Add(this.Username);
             this.Controls.Add(this.Password);
             this.Controls.Add(this.button_Close);
             this.Controls.Add(this.button_OK);
             this.Controls.Add(this.label_username);
-            this.FormSystemBtnSet = Ilab.KanSea.Chat.UI.BaseForm.FormSystemBtn.btn_miniAndbtn_close;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormSystemBtnSet = Ilab.KanSea.Chat.UI.BaseForm.FormSystemBtn.SystemNo;
             this.IsResize = false;
             this.Name = "Login";
             this.Text = "Login";

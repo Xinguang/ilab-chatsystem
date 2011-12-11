@@ -234,14 +234,10 @@ namespace Ilab.KanSea.Chat.UI
                     }
                     break;
                 case 1:
-                    btn_close.BackImg = btn_closeImg;
-                    btn_close.Location = new Point(this.Width - 43, -20);
-                    btn_max.BackImg = btn_maxImg;
-                    btn_max.Location = new Point(this.Width - 68, -20);
-                    btn_mini.BackImg = btn_miniImg;
-                    btn_mini.Location = new Point(this.Width - 93, -20);
-                    btn_restore.BackImg = btn_restoreImg;
-                    btn_restore.Location = new Point(this.Width - 68, -20);
+                    btn_close.Visible = false;
+                    btn_max.Visible = false;
+                    btn_mini.Visible = false;
+                    btn_restore.Visible = false;
                     break;
                 case 2:
                     btn_close.BackImg = btn_closeImg;
