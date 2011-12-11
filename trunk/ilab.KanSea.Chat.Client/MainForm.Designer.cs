@@ -167,6 +167,8 @@ namespace ilab.KanSea.Chat.Client
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.FormSystemBtnSet = Ilab.KanSea.Chat.UI.BaseForm.FormSystemBtn.btn_miniAndbtn_close;
             this.IsResize = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.Text = "ilab.KanSea.Chat.Client";
             this.Controls.SetChildIndex(this.MessageRecord, 0);
