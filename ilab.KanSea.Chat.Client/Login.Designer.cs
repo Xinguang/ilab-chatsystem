@@ -143,6 +143,8 @@ namespace ilab.KanSea.Chat.Client
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.FormSystemBtnSet = Ilab.KanSea.Chat.UI.BaseForm.FormSystemBtn.SystemNo;
             this.IsResize = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Login";
             this.Text = "Login";
             this.Controls.SetChildIndex(this.label_username, 0);
