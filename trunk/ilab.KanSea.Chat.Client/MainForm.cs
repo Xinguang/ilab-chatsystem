@@ -8,10 +8,12 @@
  * 声明	: 未经作者许可，任何人不得发布出售该源码，请尊重别人的劳动成果，谢谢大家支持 
  */
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ilab.KanSea.Chat.Helper;
+using ilab.KanSea.Chat.Client.config;
 
 namespace ilab.KanSea.Chat.Client
 {
@@ -20,6 +22,8 @@ namespace ilab.KanSea.Chat.Client
 	/// </summary>
 	public partial class MainForm :Ilab.KanSea.Chat.UI.BaseForm
 	{
+
+        private HttpHelper http = HttpHelper.getInstance();
         private string originalStr = null;
 		public MainForm()
 		{
@@ -42,27 +46,38 @@ namespace ilab.KanSea.Chat.Client
 
         private void MessageTranslate_Click(object sender, EventArgs e)
         {
-
             string inputStr = this.MessageInput.Text;
+            if (inputStr == "" || inputStr == null) { return; }
             if (this.originalStr != inputStr + this.Translateto.Text)
             {
                 this.originalStr = inputStr + this.Translateto.Text;
                 string tranType = this.Translateto.Text;
-
+                string InputParse = "";
+                string ngramtable = "english";
                 string localLang = this.getLocalLang(tranType);
                 if (localLang == "ja")
                 {
-                    this.MessageRecord.Text = Words.MeCabParse(inputStr);
+                    ngramtable = "japanese";
+                    InputParse = Words.MeCabParseString(inputStr);
+                    //InputParse = Words.MeCabParse(inputStr);
                 }
                 if (localLang == "zh-CHS" || localLang == "zh-CHT")
                 {
-                    this.MessageRecord.Text = Words.ICTCLAParse(inputStr);
+                    ngramtable = "chinese";
+                    InputParse = Words.ICTCLAParse(inputStr);
                 }
+
+                InputParse = Words.replaceSlang(InputParse, ngramtable);// InputParse;
+                this.MessageRecord.Text = InputParse;// InputParse;
+
+
                 string tranTo = this.getTranTo();
-                string tranStr = Translate.Microsoft_Get(inputStr, localLang, tranTo);
+                string tranStr = Translate.Microsoft_Get(InputParse, localLang, tranTo);
                 string tranBackStr = Translate.Microsoft_Get(tranStr, tranTo, localLang);
                 toolTips1.is_show = true;
-                toolTips1.SetToolTip(this.MessageTranslate, tranStr + "\n--------\n" + tranBackStr, 200, 100);
+                Int32 Tipheight = 150;
+                if (tranBackStr.Length > 100) { Tipheight = 300; }
+                toolTips1.SetToolTip(this.MessageTranslate, tranStr + "\n--------\n" + tranBackStr, 300, Tipheight);
             }
         }
         private string getLocalLang(string tranType)

@@ -59,6 +59,7 @@
     <Compile Include="model\MessageStatus.cs" />
     <Compile Include="model\UserInfo.cs" />
     <Compile Include="MysqlHelper.cs" />
+    <Compile Include="Ngram.cs" />
     <Compile Include="ProcessMsg.cs" />
     <Compile Include="..\Properties\AssemblyInfo.cs" />
     <Compile Include="Sockets.cs" />
