@@ -24,6 +24,16 @@ namespace ilab.KanSea.Chat.Helper.Const
         public const string Table_English = "english";
         public const string Table_Slang = "slang";
     }
+    public class Api
+    {
+        //public const string url_get_slang = "http://ilab.kansea.com/wwwbak/Webngram/slang.php?k={0}&p={1}";
+        public const string url_check_slang = "http://ilab.kansea.com/wwwbak/Webngram/checkword.php?t={0}&k={1}";
+        public const string url_fix_split = "http://ilab.kansea.com/wwwbak/Webngram/fixsplit.php?ks={0}&input={1}&lang={2}";
+
+        //public const string yahoo_appid = "xUtu2PKxg64uz3UjrK7EBiFgZckyki_veV2_h_PxsjZavxUhg6N3muKcytn1PBU-";
+        //public const string yahoo_Url_text = "http://jlp.yahooapis.jp/JIMService/V1/conversion?appid={0}&sentence={1}&response=hiragana,katakana";
+        //public const string yahoo_Url_Furigana = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid={0}&sentence={1}";
+    }
     public class Socktes_Server
     {
         public const Int32 ServerPort = 125;

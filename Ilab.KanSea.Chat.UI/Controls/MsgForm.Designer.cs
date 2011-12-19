@@ -110,7 +110,7 @@ namespace Ilab.KanSea.Chat.UI.Controls
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MsgForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Form3";
+            this.Text = "MsgBox";
             this.Body.ResumeLayout(false);
             this.ResumeLayout(false);
 

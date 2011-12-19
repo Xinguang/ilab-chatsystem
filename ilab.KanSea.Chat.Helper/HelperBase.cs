@@ -42,6 +42,18 @@ namespace ilab.KanSea.Chat.Helper
             }
             catch { return false; }
         }
+        public static string Repalce(string input, string pattern, string repstr)
+        {
+            try
+            {
+                if (IsHaveString(input, pattern))
+                {
+                    return Regex.Replace(input,pattern,repstr);
+                }
+            }
+            catch { }
+            return null;
+        }
         /// <summary>
         /// 获取匹配字符
         /// </summary>

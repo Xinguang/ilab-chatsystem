@@ -23,6 +23,8 @@ namespace Ilab.KanSea.Chat.UI.Controls
 	public class ToolTips: UserControl
 	{
         private MsgForm Tips = null;
+        public Int32 TipWidth = 200;
+        public Int32 TipHeight = 200; 
         public ToolTips()
         {
             this.Tips = new MsgForm();
@@ -31,11 +33,13 @@ namespace Ilab.KanSea.Chat.UI.Controls
 
         public void SetToolTip(Control control, String Text,int width,int height)
         {
-            this.Tips.Size = new System.Drawing.Size(width, height);
+            this.TipWidth = width;
+            this.TipHeight = height;
             this.SetToolTip(control, Text);
         }
         public void SetToolTip(Control control,String Text)
         {
+            this.Tips.Size = new System.Drawing.Size(this.TipWidth, this.TipHeight);
             control.Controls.Clear();
             Label TipText = new Label();
             TipText.Text = Text;
@@ -72,7 +76,7 @@ namespace Ilab.KanSea.Chat.UI.Controls
                     //Tips.Controls["Body"].Controls.Add(MsgTextBox);
                     Tips.AddControl(MsgTextBox);
                 }
-                this.Tips.StartLocation = new Point(this.ParentForm.Location.X, 0);
+                this.Tips.StartLocation = new Point(this.ParentForm.Location.X, this.ParentForm.Location.Y + this.ParentForm.Height - this.TipHeight);
                 this.Tips.ParentFormWidth = this.ParentForm.Width;
                 Tips.reLoadLocation();
                 Tips.show();

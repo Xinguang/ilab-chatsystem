@@ -223,11 +223,15 @@ namespace Ilab.KanSea.Chat.UI.Controls
         #region 释放资源
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            try
             {
-                _BackImg.Dispose();
+                if (disposing)
+                {
+                    _BackImg.Dispose();
+                }
+                base.Dispose(disposing);
             }
-            base.Dispose(disposing);
+            catch { }
         }
         #endregion
     }

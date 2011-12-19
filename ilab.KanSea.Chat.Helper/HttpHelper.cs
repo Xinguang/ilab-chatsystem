@@ -105,14 +105,14 @@ namespace ilab.KanSea.Chat.Helper
         /// <summary>
         /// 单体模式 
         /// </summary>
-        private static HelperBase objInstance = null;
+        private static HttpHelper objInstance = null;
         /// <summary>
         /// 单体模式
         /// </summary>
         /// <returns></returns>
-        public static HelperBase getInstance()
+        public static HttpHelper getInstance()
         {
-            if (objInstance == null) objInstance = new HelperBase();
+            if (objInstance == null) objInstance = new HttpHelper();
             return objInstance;
         }
         /// <summary>

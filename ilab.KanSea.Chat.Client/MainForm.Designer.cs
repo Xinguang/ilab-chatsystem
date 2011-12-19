@@ -37,33 +37,31 @@ namespace ilab.KanSea.Chat.Client
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.MessageRecord = new Ilab.KanSea.Chat.UI.Controls.TextBox();
+            this.MessageRecord = new System.Windows.Forms.RichTextBox();
             this.MessageInput = new Ilab.KanSea.Chat.UI.Controls.TextBox();
             this.MessageSend = new Ilab.KanSea.Chat.UI.Controls.Button();
             this.UserName = new System.Windows.Forms.Label();
             this.toolTips1 = new Ilab.KanSea.Chat.UI.Controls.ToolTips();
             this.MessageTranslate = new Ilab.KanSea.Chat.UI.Controls.Button();
             this.Translateto = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MessageRecord
             // 
-            this.MessageRecord.BackColor = System.Drawing.Color.Transparent;
-            this.MessageRecord.font = new System.Drawing.Font("微软雅黑", 9F);
-            this.MessageRecord.Ico = null;
-            this.MessageRecord.IcoPadding = new System.Windows.Forms.Padding(3, 3, 0, 0);
-            this.MessageRecord.Isico = false;
-            this.MessageRecord.IsPass = false;
-            this.MessageRecord.lines = new string[0];
-            this.MessageRecord.Location = new System.Drawing.Point(12, 40);
+            this.MessageRecord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MessageRecord.Location = new System.Drawing.Point(2, 2);
             this.MessageRecord.MaxLength = 32767;
-            this.MessageRecord.Multiline = true;
             this.MessageRecord.Name = "MessageRecord";
-            this.MessageRecord.PassChar = '\0';
             this.MessageRecord.ReadOnly = true;
-            this.MessageRecord.Size = new System.Drawing.Size(422, 190);
+            this.MessageRecord.Size = new System.Drawing.Size(417, 190);
             this.MessageRecord.TabIndex = 4;
-            this.MessageRecord.text = "";
+            this.MessageRecord.Text = "";
             // 
             // MessageInput
             // 
@@ -109,7 +107,7 @@ namespace ilab.KanSea.Chat.Client
             // toolTips1
             // 
             this.toolTips1.is_show = false;
-            this.toolTips1.Location = new System.Drawing.Point(12, 389);
+            this.toolTips1.Location = new System.Drawing.Point(83, 8);
             this.toolTips1.Name = "toolTips1";
             this.toolTips1.Size = new System.Drawing.Size(150, 150);
             this.toolTips1.TabIndex = 9;
@@ -152,18 +150,62 @@ namespace ilab.KanSea.Chat.Client
             this.Translateto.TabIndex = 11;
             this.Translateto.Text = "Local language->English";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.MessageRecord);
+            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Controls.Add(this.panel5);
+            this.panel1.Controls.Add(this.toolTips1);
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Location = new System.Drawing.Point(13, 40);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(421, 194);
+            this.panel1.TabIndex = 12;
+            // 
+            // panel4
+            // 
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel4.Location = new System.Drawing.Point(419, 2);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(2, 190);
+            this.panel4.TabIndex = 14;
+            // 
+            // panel5
+            // 
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.Location = new System.Drawing.Point(2, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(419, 2);
+            this.panel5.TabIndex = 14;
+            // 
+            // panel3
+            // 
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(2, 192);
+            this.panel3.TabIndex = 14;
+            // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 192);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(421, 2);
+            this.panel2.TabIndex = 13;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 377);
+            this.ClientSize = new System.Drawing.Size(447, 381);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.Translateto);
             this.Controls.Add(this.MessageTranslate);
-            this.Controls.Add(this.toolTips1);
             this.Controls.Add(this.UserName);
             this.Controls.Add(this.MessageSend);
             this.Controls.Add(this.MessageInput);
-            this.Controls.Add(this.MessageRecord);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.FormSystemBtnSet = Ilab.KanSea.Chat.UI.BaseForm.FormSystemBtn.btn_miniAndbtn_close;
             this.IsResize = false;
@@ -171,23 +213,28 @@ namespace ilab.KanSea.Chat.Client
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.Text = "ilab.KanSea.Chat.Client";
-            this.Controls.SetChildIndex(this.MessageRecord, 0);
             this.Controls.SetChildIndex(this.MessageInput, 0);
             this.Controls.SetChildIndex(this.MessageSend, 0);
             this.Controls.SetChildIndex(this.UserName, 0);
-            this.Controls.SetChildIndex(this.toolTips1, 0);
             this.Controls.SetChildIndex(this.MessageTranslate, 0);
             this.Controls.SetChildIndex(this.Translateto, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
 		}
-        private Ilab.KanSea.Chat.UI.Controls.TextBox MessageRecord;
+        private System.Windows.Forms.RichTextBox MessageRecord;
         private Ilab.KanSea.Chat.UI.Controls.TextBox MessageInput;
         private Ilab.KanSea.Chat.UI.Controls.Button MessageSend;
         private System.Windows.Forms.Label UserName;
         private Ilab.KanSea.Chat.UI.Controls.ToolTips toolTips1;
         private Ilab.KanSea.Chat.UI.Controls.Button MessageTranslate;
         private System.Windows.Forms.ComboBox Translateto;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel2;
 	}
 }
