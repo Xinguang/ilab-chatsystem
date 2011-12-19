@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using ilab.KanSea.Chat.Helper;
 using ilab.KanSea.Chat.Client.config;
 
+
 namespace ilab.KanSea.Chat.Client
 {
 	/// <summary>
@@ -24,6 +25,8 @@ namespace ilab.KanSea.Chat.Client
 	{
 
         private HttpHelper http = HttpHelper.getInstance();
+        private string sendStrTemp = null;
+        private StringBuilder sendLinkTemp = new StringBuilder();
         private string originalStr = null;
 		public MainForm()
 		{
@@ -36,12 +39,19 @@ namespace ilab.KanSea.Chat.Client
             // The InitializeComponent() call is required for Windows Forms designer support.
             //
             InitializeComponent();
+            this.Translateto.SelectedIndex = 1;
             this.SystemBtnSet();
             //this.Size = new System.Drawing.Size(446, 380);
             //this.Size = new System.Drawing.Size(724, 380);
             //
             // TODO: Add constructor code after the InitializeComponent() call.
             //
+        }
+        private void MessageSend_Click(object sender, EventArgs e)
+        {
+            this.MessageTranslate_Click(null, null);
+            this.MessageRecord.InsertLink(this.UserName.Text,"USERNAME");
+            this.MessageRecord.SelectedText = "\n\n"+this.sendStrTemp+"\n\n";
         }
 
         private void MessageTranslate_Click(object sender, EventArgs e)
@@ -68,16 +78,16 @@ namespace ilab.KanSea.Chat.Client
                 }
 
                 InputParse = Words.replaceSlang(InputParse, ngramtable);// InputParse;
-                this.MessageRecord.Text = InputParse;// InputParse;
-
-
+                //this.MessageRecord.Text = InputParse;// InputParse;
+                this.sendLinkTemp.Append("sss");//link
                 string tranTo = this.getTranTo();
-                string tranStr = Translate.Microsoft_Get(InputParse, localLang, tranTo);
-                string tranBackStr = Translate.Microsoft_Get(tranStr, tranTo, localLang);
+                string tranStr = Translate.Microsoft_Get(System.Web.HttpUtility.UrlEncode(InputParse), localLang, tranTo);
+                string tranBackStr = Translate.Microsoft_Get(System.Web.HttpUtility.UrlEncode(tranStr), tranTo, localLang);
                 toolTips1.is_show = true;
                 Int32 Tipheight = 150;
                 if (tranBackStr.Length > 100) { Tipheight = 300; }
-                toolTips1.SetToolTip(this.MessageTranslate, tranStr + "\n--------\n" + tranBackStr, 300, Tipheight);
+                this.sendStrTemp = tranStr + "\n---------------------\n(" + inputStr + ")";
+                toolTips1.SetToolTip(this.MessageTranslate, InputParse + "\n--------\n" + tranStr + "\n--------\n" + tranBackStr, 300, Tipheight);
             }
         }
         private string getLocalLang(string tranType)
@@ -147,5 +157,50 @@ namespace ilab.KanSea.Chat.Client
             }
             return systemLang;
         }
-	}
+
+        private void MessageRecord_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            toolTips1.is_show = true;
+            Int32 Tipheight = 150;
+            string info = e.LinkText;
+            info = HelperBase.GetString(info,"([^#]*)",1);
+            string msg = HelperBase.GetString(info, "#([^$])", 1);
+            String wiki = null;
+
+            if (msg != "UserName")
+            {
+                this.http.Encoding = Encoding.UTF8;
+                string locallang = this.getLocalLang();
+                string uri = null;
+                string reg = null;
+                switch (locallang)
+                {
+                    case "zh-CHS":
+                        uri = "http://zh.wikipedia.org/wiki/";
+                        break;
+                    case "zh-CHT":
+                        uri = "http://zh-yue.wikipedia.org/wiki/";
+                        break;
+                    case "ja":
+                        reg = "bodycontent[^<]*<[^>]*><p>(.*)<\\/p>[^<]*<table";
+                        uri = "http://ja.wikipedia.org/wiki/";
+                        break;
+                    default:
+                        uri = "http://en.wikipedia.org/wiki/";
+                        break;
+                }
+                wiki = this.http.GetRequest(uri+info);
+                wiki = HelperBase.GetString(wiki, reg, 1);
+            }
+
+            if (info.Length > 100) { Tipheight = 300; }
+            toolTips1.SetToolTip(this.MessageTranslate, info + "\n--------\n"+wiki, 300, Tipheight);
+        }
+
+
+
+
+
+
+    }
 }
