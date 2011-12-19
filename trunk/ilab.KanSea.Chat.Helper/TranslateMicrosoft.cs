@@ -41,7 +41,8 @@ namespace ilab.KanSea.Chat.Helper
         public static string Microsoft_Get(string str, string from, string to)
         {
             string httpstr = _http.GetRequest(_url_Microsoft_Translate + string.Format("?appId={0}&text={1}&from={2}&to={3}",_url_Microsoft_v2_key, str, from, to));
-            return HelperBase.GetString(httpstr,"\\\"(.*)\\\"",1);
+            httpstr = HelperBase.GetString(httpstr, "\\\"(.*)\\\"", 1);
+            return httpstr.Replace("\\u000d","").Replace("\\u000a","");
         }
         public static String[] Microsoft_GetStrings(string[] strs, string from, string to)
         {

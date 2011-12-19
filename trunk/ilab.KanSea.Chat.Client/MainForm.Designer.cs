@@ -37,7 +37,7 @@ namespace ilab.KanSea.Chat.Client
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.MessageRecord = new System.Windows.Forms.RichTextBox();
+            this.MessageRecord = new Ilab.KanSea.Chat.UI.Controls.RichTextBoxEx();
             this.MessageInput = new Ilab.KanSea.Chat.UI.Controls.TextBox();
             this.MessageSend = new Ilab.KanSea.Chat.UI.Controls.Button();
             this.UserName = new System.Windows.Forms.Label();
@@ -62,6 +62,7 @@ namespace ilab.KanSea.Chat.Client
             this.MessageRecord.Size = new System.Drawing.Size(417, 190);
             this.MessageRecord.TabIndex = 4;
             this.MessageRecord.Text = "";
+            this.MessageRecord.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.MessageRecord_LinkClicked);
             // 
             // MessageInput
             // 
@@ -93,6 +94,7 @@ namespace ilab.KanSea.Chat.Client
             this.MessageSend.TabIndex = 7;
             this.MessageSend.Text = "Send";
             this.MessageSend.UseVisualStyleBackColor = false;
+            this.MessageSend.Click += new System.EventHandler(this.MessageSend_Click);
             // 
             // UserName
             // 
@@ -128,6 +130,7 @@ namespace ilab.KanSea.Chat.Client
             // 
             // Translateto
             // 
+            this.Translateto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Translateto.FormattingEnabled = true;
             this.Translateto.Items.AddRange(new object[] {
             "Local->English",
@@ -148,7 +151,6 @@ namespace ilab.KanSea.Chat.Client
             this.Translateto.Name = "Translateto";
             this.Translateto.Size = new System.Drawing.Size(153, 20);
             this.Translateto.TabIndex = 11;
-            this.Translateto.Text = "Local language->English";
             // 
             // panel1
             // 
@@ -224,7 +226,7 @@ namespace ilab.KanSea.Chat.Client
             this.PerformLayout();
 
 		}
-        private System.Windows.Forms.RichTextBox MessageRecord;
+        private Ilab.KanSea.Chat.UI.Controls.RichTextBoxEx MessageRecord;
         private Ilab.KanSea.Chat.UI.Controls.TextBox MessageInput;
         private Ilab.KanSea.Chat.UI.Controls.Button MessageSend;
         private System.Windows.Forms.Label UserName;
