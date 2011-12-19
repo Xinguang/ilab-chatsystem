@@ -50,6 +50,7 @@ namespace ilab.KanSea.Chat.Client
         private void MessageSend_Click(object sender, EventArgs e)
         {
             this.MessageTranslate_Click(null, null);
+            this.MessageRecord.SelectedText = "\n\n";
             this.MessageRecord.InsertLink(this.UserName.Text,"USERNAME");
             this.MessageRecord.SelectedText = "\n\n"+this.sendStrTemp+"\n\n";
             //this.MessageRecord.InsertLink(this.sendLinkTemp.ToString());
