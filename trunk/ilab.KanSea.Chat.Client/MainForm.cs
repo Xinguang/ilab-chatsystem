@@ -52,6 +52,7 @@ namespace ilab.KanSea.Chat.Client
             this.MessageTranslate_Click(null, null);
             this.MessageRecord.InsertLink(this.UserName.Text,"USERNAME");
             this.MessageRecord.SelectedText = "\n\n"+this.sendStrTemp+"\n\n";
+            //this.MessageRecord.InsertLink(this.sendLinkTemp.ToString());
         }
 
         private void MessageTranslate_Click(object sender, EventArgs e)
@@ -78,8 +79,10 @@ namespace ilab.KanSea.Chat.Client
                 }
 
                 InputParse = Words.replaceSlang(InputParse, ngramtable);// InputParse;
+                string linktest = HelperBase.GetString(InputParse,"([^#]*)######",1);
+                InputParse = InputParse.Replace(linktest, "").Replace("######", "");
                 //this.MessageRecord.Text = InputParse;// InputParse;
-                this.sendLinkTemp.Append("sss");//link
+                this.sendLinkTemp.Append(linktest);//link
                 string tranTo = this.getTranTo();
                 string tranStr = Translate.Microsoft_Get(System.Web.HttpUtility.UrlEncode(InputParse), localLang, tranTo);
                 string tranBackStr = Translate.Microsoft_Get(System.Web.HttpUtility.UrlEncode(tranStr), tranTo, localLang);
