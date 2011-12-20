@@ -84,7 +84,8 @@ namespace ilab.KanSea.Chat.Client
                 InputParse = InputParse.Replace(linktest + "######", "");
                 //this.MessageRecord.Text = InputParse;// InputParse;
                 //this.MessageRecord.Text = Words.getslang(linktest);
-                this.sendLinkTemp = Words.getslang(linktest);
+                this.sendLinkTemp = Words.getslang(InputParse);
+                //this.sendLinkTemp = Words.getslang(linktest);
                 string tranTo = this.getTranTo();
                 string tranStr = Translate.Microsoft_Get(System.Web.HttpUtility.UrlEncode(InputParse), localLang, tranTo);
                 string tranBackStr = Translate.Microsoft_Get(System.Web.HttpUtility.UrlEncode(tranStr), tranTo, localLang);
