@@ -124,7 +124,12 @@ namespace ilab.KanSea.Chat.Helper
             return null;
         }*/
 
-
+        public static string getslang(string slangs)
+        {
+            HttpHelper http = HttpHelper.getInstance();
+            http.Encoding = Encoding.UTF8;
+            return http.GetRequest(string.Format(Api.url_get_slang, slangs, 1));
+        }
 
 
 
