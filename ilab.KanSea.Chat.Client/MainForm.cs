@@ -26,7 +26,7 @@ namespace ilab.KanSea.Chat.Client
 
         private HttpHelper http = HttpHelper.getInstance();
         private string sendStrTemp = null;
-        private StringBuilder sendLinkTemp = new StringBuilder();
+        private String sendLinkTemp = null;
         private string originalStr = null;
 		public MainForm()
 		{
@@ -51,9 +51,9 @@ namespace ilab.KanSea.Chat.Client
         {
             this.MessageTranslate_Click(null, null);
             this.MessageRecord.SelectedText = "\n\n";
-            this.MessageRecord.InsertLink(this.UserName.Text,"USERNAME");
-            this.MessageRecord.SelectedText = "\n\n"+this.sendStrTemp+"\n\n";
-            //this.MessageRecord.InsertLink(this.sendLinkTemp.ToString());
+           // this.MessageRecord.InsertLink(this.UserName.Text, "USERNAME");
+            this.MessageRecord.InsertLink(this.UserName.Text, "USERNAME");
+            this.MessageRecord.SelectedText = "\n\n" + this.sendStrTemp + "\n\n";
         }
 
         private void MessageTranslate_Click(object sender, EventArgs e)
@@ -81,17 +81,20 @@ namespace ilab.KanSea.Chat.Client
 
                 InputParse = Words.replaceSlang(InputParse, ngramtable);// InputParse;
                 string linktest = HelperBase.GetString(InputParse,"([^#]*)######",1);
-                InputParse = InputParse.Replace(linktest, "").Replace("######", "");
+                InputParse = InputParse.Replace(linktest + "######", "");
                 //this.MessageRecord.Text = InputParse;// InputParse;
-                this.sendLinkTemp.Append(linktest);//link
+                //this.MessageRecord.Text = Words.getslang(linktest);
+                this.sendLinkTemp = Words.getslang(linktest);
                 string tranTo = this.getTranTo();
                 string tranStr = Translate.Microsoft_Get(System.Web.HttpUtility.UrlEncode(InputParse), localLang, tranTo);
                 string tranBackStr = Translate.Microsoft_Get(System.Web.HttpUtility.UrlEncode(tranStr), tranTo, localLang);
                 toolTips1.is_show = true;
-                Int32 Tipheight = 150;
-                if (tranBackStr.Length > 100) { Tipheight = 300; }
+                Int32 Tipheight =250;
+                if (tranBackStr.Length > 100) { Tipheight = 400; }
                 this.sendStrTemp = tranStr + "\n---------------------\n(" + inputStr + ")";
-                toolTips1.SetToolTip(this.MessageTranslate, InputParse + "\n--------\n" + tranStr + "\n--------\n" + tranBackStr, 300, Tipheight);
+                string showtext = "解析:" + InputParse + "\n--------\n翻訳文:" + tranStr + "\n--------\n折り返し翻訳：" + tranBackStr + "\n--------\n俗語:\n" + this.sendLinkTemp;
+
+                toolTips1.SetToolTip(this.MessageTranslate, showtext, 300, Tipheight);
             }
         }
         private string getLocalLang(string tranType)
@@ -198,7 +201,7 @@ namespace ilab.KanSea.Chat.Client
             }
 
             if (info.Length > 100) { Tipheight = 300; }
-            toolTips1.SetToolTip(this.MessageTranslate, info + "\n--------\n"+wiki, 300, Tipheight);
+            toolTips1.SetToolTip(this.UserName, info + "\n--------\n"+wiki, 300, Tipheight);
         }
 
 

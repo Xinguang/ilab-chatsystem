@@ -13,7 +13,8 @@ namespace ilab.KanSea.Chat.Helper.Const
 {
     public class Data_Server
     {
-        private const string Server = "192.168.0.15";
+        private const string Server = "localhost";
+        //private const string Server = "192.168.0.15";
         private const string User = "ngram";
         private const string Pass = "yRpWAEdTmxTb8Z3E";
         private const string DataBase = "ngram";
@@ -26,7 +27,7 @@ namespace ilab.KanSea.Chat.Helper.Const
     }
     public class Api
     {
-        //public const string url_get_slang = "http://ilab.kansea.com/wwwbak/Webngram/slang.php?k={0}&p={1}";
+        public const string url_get_slang = "http://ilab.kansea.com/wwwbak/Webngram/slang.php?k={0}&p={1}";
         public const string url_check_slang = "http://ilab.kansea.com/wwwbak/Webngram/checkword.php?t={0}&k={1}";
         public const string url_fix_split = "http://ilab.kansea.com/wwwbak/Webngram/fixsplit.php?ks={0}&input={1}&lang={2}";
 
