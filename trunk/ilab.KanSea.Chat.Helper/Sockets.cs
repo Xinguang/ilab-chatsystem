@@ -382,11 +382,11 @@ namespace ilab.KanSea.Chat.Helper
         /// Socket sender 未初始化 则为客户端  连接服务器 否则 发送给上
         /// </summary>
         /// <param name="msg">发送模型</param>
-        public void send(Message msg)
+        public void send(iMessage msg)
         {
             this.send(msg, MessageStatus.GetMsgUser);
         }
-        public void send(Message[] msgs)
+        public void send(iMessage[] msgs)
         {
             this.send(msgs, MessageStatus.GetMsgList);
         }
@@ -413,7 +413,7 @@ namespace ilab.KanSea.Chat.Helper
         /// </summary>
         /// <param name="msg">发送模型</param>
         /// <param name="clientSocket">客户端</param>
-        public void send(Message msg, Socket clientSocket)
+        public void send(iMessage msg, Socket clientSocket)
         {
             this._sender = clientSocket;
             this.send(msg, MessageStatus.SendMsgUser);
@@ -423,7 +423,7 @@ namespace ilab.KanSea.Chat.Helper
         /// </summary>
         /// <param name="msgs">发送模型</param>
         /// <param name="clientSocket">客户端</param>
-        public void send(Message[] msgs, Socket clientSocket)
+        public void send(iMessage[] msgs, Socket clientSocket)
         {
             this._sender = clientSocket;
             this.send(msgs, MessageStatus.SendMsgList);

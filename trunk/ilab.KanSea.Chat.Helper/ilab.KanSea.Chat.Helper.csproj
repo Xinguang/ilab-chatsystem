@@ -54,7 +54,7 @@
     <Compile Include="model\Container.cs" />
     <Compile Include="model\data\Ngram.cs" />
     <Compile Include="model\data\Slang.cs" />
-    <Compile Include="model\Message.cs" />
+    <Compile Include="model\iMessage.cs" />
     <Compile Include="model\MessageHeader.cs" />
     <Compile Include="model\MessageStatus.cs" />
     <Compile Include="model\UserInfo.cs" />

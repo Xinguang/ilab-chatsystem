@@ -130,13 +130,13 @@ namespace ilab.KanSea.Chat.Helper
         }
         private void getMsgList()
         {
-            Message[] messages = (Message[])this._Object;
+            iMessage[] messages = (iMessage[])this._Object;
             string testmsg = "getMsgList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void getMsgUser()
         {
-            Message message = (Message)this._Object;
+            iMessage message = (iMessage)this._Object;
             string testmsg = "getMsgUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
@@ -157,13 +157,13 @@ namespace ilab.KanSea.Chat.Helper
         }
         private void sendMsgList()
         {
-            Message[] messages = (Message[])this._Object;
+            iMessage[] messages = (iMessage[])this._Object;
             string testmsg = "sendMsgList:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
         private void sendMsgUser()
         {
-            Message message = (Message)this._Object;
+            iMessage message = (iMessage)this._Object;
             string testmsg = "sendMsgUser:";
             System.Windows.Forms.MessageBox.Show(testmsg);
         }
