@@ -15,7 +15,7 @@ namespace ilab.KanSea.Chat.Helper.model
 	/// information model
 	/// </summary>
     [Serializable]
-    public class Message : IEquatable<Message>
+    public class iMessage : IEquatable<iMessage>
 	{
 		#region 属性
         /// <summary>
@@ -41,7 +41,7 @@ namespace ilab.KanSea.Chat.Helper.model
         #endregion
 
         #region 方法
-        public bool Equals(Message other)
+        public bool Equals(iMessage other)
         {
             //Check whether the compared object is null.
             if (Object.ReferenceEquals(other, null)) return false;
